@@ -1,0 +1,261 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p id="demo">Use this area to provide additional information.</p>
+
+<p id="demo1">Use this area to provide additional information.</p>
+
+<div id="map" style="width:100%;height:450px;"></div>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=HJa_YjHW1l18wmHFAAm3&callback=initMap"></script>
+<script type="text/javascript">
+    if (window.innerWidth < 767)
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(35.8689905, 128.5801095),
+            zoom: 12
+        });
+    else
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(35.8689905, 128.5801095),
+            zoom: 13
+        });
+
+    var first = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.869137, 128.580168),
+            new naver.maps.LatLng(35.869672, 128.580127),
+            new naver.maps.LatLng(35.869639, 128.579596),
+            new naver.maps.LatLng(35.869564, 128.579522),
+            new naver.maps.LatLng(35.869096, 128.579571)
+        ]],
+        strokeColor: '#808080',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(first, 'click', function () {
+        alert("1지구 지도 정보가 준비되지 않았습니다.");
+    });
+
+
+    var second = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.868594, 128.578901),
+            new naver.maps.LatLng(35.868671, 128.580183),
+            new naver.maps.LatLng(35.869008, 128.580153),
+            new naver.maps.LatLng(35.868936, 128.578874)
+        ]],
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(second, "mouseover", function () {
+        second.setOptions({
+            fillOpacity: 0.8
+        });
+    });
+    naver.maps.Event.addListener(second, 'mouseout', function () {
+        second.setOptions({
+            fillOpacity: 0.3
+        });
+    });
+    naver.maps.Event.addListener(second, 'click', function () {
+        second.setOptions({
+            fillOpacity: 0.3
+        });
+        window.location.href = 'Contact/'
+    });
+
+    var forth = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.869154, 128.580377),
+            new naver.maps.LatLng(35.869205, 128.581192),
+            new naver.maps.LatLng(35.869739, 128.581140),
+            new naver.maps.LatLng(35.869685, 128.580332)
+        ]],
+        strokeColor: '#808080',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(forth, 'click', function () {
+        alert("4지구 화재 현장 복구 중 입니다..");
+    });
+
+    var fifth = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.868344, 128.578239),
+            new naver.maps.LatLng(35.868150, 128.578100),
+            new naver.maps.LatLng(35.867876, 128.578124),
+            new naver.maps.LatLng(35.867772, 128.578225),
+            new naver.maps.LatLng(35.867816, 128.578844),
+            new naver.maps.LatLng(35.868368, 128.578799)
+        ]],
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(fifth, "mouseover", function () {
+        fifth.setOptions({
+            fillOpacity: 0.8
+        });
+    });
+    naver.maps.Event.addListener(fifth, 'mouseout', function () {
+        fifth.setOptions({
+            fillOpacity: 0.3
+        });
+    });
+    naver.maps.Event.addListener(fifth, 'click', function () {
+        fifth.setOptions({
+            fillOpacity: 0.3
+        });
+        window.location.href = 'Contact/'
+    });
+
+    var union = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.869070, 128.581139),
+            new naver.maps.LatLng(35.869022, 128.580369),
+            new naver.maps.LatLng(35.868706, 128.580396),
+            new naver.maps.LatLng(35.868751, 128.581173)
+        ]],
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(union, "mouseover", function () {
+        union.setOptions({
+            fillOpacity: 0.8
+        });
+    });
+    naver.maps.Event.addListener(union, 'mouseout', function () {
+        union.setOptions({
+            fillOpacity: 0.3
+        });
+    });
+    naver.maps.Event.addListener(union, 'click', function () {
+        union.setOptions({
+            fillOpacity: 0.3
+        });
+        window.location.href = 'Contact/'
+    });
+
+    var ajin = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.869218, 128.581310),
+            new naver.maps.LatLng(35.869274, 128.582119),
+            new naver.maps.LatLng(35.869788, 128.582090),
+            new naver.maps.LatLng(35.869736, 128.581262)
+        ]],
+        strokeColor: '#808080',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(ajin, 'click', function () {
+        alert("아진상가 지도 정보가 준비되지 않았습니다.");
+    });
+
+    var dongsan = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.868736, 128.581363),
+            new naver.maps.LatLng(35.868779, 128.582042),
+            new naver.maps.LatLng(35.868835, 128.582094),
+            new naver.maps.LatLng(35.869158, 128.582090),
+            new naver.maps.LatLng(35.869107, 128.581328)
+        ]],
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(dongsan, "mouseover", function () {
+        dongsan.setOptions({
+            fillOpacity: 0.8
+        });
+    });
+    naver.maps.Event.addListener(dongsan, 'mouseout', function () {
+        dongsan.setOptions({
+            fillOpacity: 0.3
+        });
+    });
+    naver.maps.Event.addListener(dongsan, 'click', function () {
+        dongsan.setOptions({
+            fillOpacity: 0.3
+        });
+        window.location.href = 'Contact/'
+    });
+
+    var seafood = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.868422, 128.579632),
+            new naver.maps.LatLng(35.868204, 128.579709),
+            new naver.maps.LatLng(35.868365, 128.581040),
+            new naver.maps.LatLng(35.868555, 128.581540)
+        ]],
+        strokeColor: '#808080',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(seafood, 'click', function () {
+        alert("건해물상가 지도 정보가 준비되지 않았습니다.");
+    });
+
+    var myungpoom = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.869826, 128.581137),
+            new naver.maps.LatLng(35.870096, 128.581101),
+            new naver.maps.LatLng(35.870021, 128.580232),
+            new naver.maps.LatLng(35.869770, 128.580256)
+        ]],
+        strokeColor: '#808080',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(myungpoom, 'click', function () {
+        alert("명품플라자 지도 정보가 준비되지 않았습니다.");
+    });
+</script>
