@@ -11,11 +11,11 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
+        <img src="https://hyundaiplastic.blob.core.windows.net/test-blob-container/storeIcon.jpg" width="262" height="193" alt="Available on Store" usemap="#storemap" />
+        <map name="storemap">
+            <area shape="rect" coords="0, 0, 262, 96.5" href="https://itunes.apple.com/us/app/apple-store/id375380948?mt=8" alt="Available on Appstore" />
+            <area shape="rect" coords="0, 96.5, 262, 193" href="https://play.google.com/store/apps/details?id=hyoseop.metal.chopsticks.westgateproject" alt="Available on Playstore" />
+        </map>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
@@ -29,3 +29,12 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+<script>
+    function store() {
+        if (navigator.appVersion.indexOf("Win") != -1) window.location.href = '/Home/Contact/';
+        if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
+        if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
+        if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
+    }
+</script>
