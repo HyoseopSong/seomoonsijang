@@ -1,12 +1,9 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "약도";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
-<p id="demo">Use this area to provide additional information.</p>
-
-<p id="demo1">Use this area to provide additional information.</p>
 
 <div id="map" style="width:100%;height:450px;"></div>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=HJa_YjHW1l18wmHFAAm3&callback=initMap"></script>
@@ -74,7 +71,7 @@
         second.setOptions({
             fillOpacity: 0.3
         });
-        window.location.href = '/Home/Contact/'
+        window.location.href = '/FloorInfo/SecondFirst/'
     });
 
     var forth = new naver.maps.Polygon({
@@ -129,7 +126,7 @@
         fifth.setOptions({
             fillOpacity: 0.3
         });
-        window.location.href = 'Contact/'
+        window.location.href = '/FloorInfo/FifthFirst/'
     });
 
     var union = new naver.maps.Polygon({
@@ -162,7 +159,7 @@
         union.setOptions({
             fillOpacity: 0.3
         });
-        window.location.href = 'Contact/'
+        window.location.href = '/FloorInfo/Union/'
     });
 
     var ajin = new naver.maps.Polygon({
@@ -216,7 +213,7 @@
         dongsan.setOptions({
             fillOpacity: 0.3
         });
-        window.location.href = 'Contact/'
+        window.location.href = '/FloorInfo/DongsanFirst/'
     });
 
     var seafood = new naver.maps.Polygon({
