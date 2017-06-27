@@ -10,6 +10,9 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using seomoonsijang.Models;
 using Microsoft.WindowsAzure.Storage.Table;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Threading.Tasks;
 
 namespace seomoonsijang.Controllers
 {
@@ -29,7 +32,30 @@ namespace seomoonsijang.Controllers
 
         [HttpGet]
         public ActionResult Contact()
-        {            
+        {
+            //var msg = new SendGridMessage();
+
+            //msg.SetFrom(new EmailAddress("seopjjang@gmail.com", "MySelf"));
+
+            //var recipients = new List<EmailAddress>
+            //{
+            //    new EmailAddress("lsaforever0217@gmail.com", "lsaforever"),
+            //    new EmailAddress("csnvshs@naver.com","navercsnvshs"),
+            //    new EmailAddress("novar-sonic@daum.net","novardaum")
+            //};
+            //msg.AddTos(recipients);
+
+            //msg.SetSubject("Testing the SendGrid C# Library");
+
+            //msg.AddContent(MimeType.Text, "Hello World plain text!");
+            //msg.AddContent(MimeType.Html, "<p>Hello World!</p>");
+            //var apikey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+            //var client = new SendGridClient(apikey);
+            //var response = client.SendEmailAsync(msg);
+
+
+            //ViewBag.Message = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+
             return View();
         }
         [HttpPost]
@@ -72,10 +98,11 @@ namespace seomoonsijang.Controllers
             }
             else
             {
-                ViewBag.Message = "업로드할 내용이 없습니다.";
+                
             }
             
             return View();
         }
+        
     }
 }
