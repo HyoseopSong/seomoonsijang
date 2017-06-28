@@ -11,6 +11,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using seomoonsijang.Models;
+using SendGrid.Helpers.Mail;
+using System.Net;
+using System.Configuration;
+using SendGrid;
+using System.Diagnostics;
 
 namespace seomoonsijang
 {
@@ -19,7 +24,21 @@ namespace seomoonsijang
         public Task SendAsync(IdentityMessage message)
         {
             // 전자 메일을 보낼 전자 메일 서비스를 여기에 플러그 인으로 추가합니다.
-            return Task.FromResult(0);
+            return configSendGridasync(message);
+        }
+
+        private Task configSendGridasync(IdentityMessage message)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new EmailAddress("seopjjang@gmail.com", "송효섭");
+            myMessage.Subject = message.Subject;
+            myMessage.PlainTextContent = message.Body;
+            myMessage.HtmlContent = message.Body;
+
+            var apikey = Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+            var client = new SendGridClient(apikey);
+            return client.SendEmailAsync(myMessage);            
         }
     }
 
