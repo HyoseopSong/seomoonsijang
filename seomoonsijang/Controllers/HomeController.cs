@@ -64,7 +64,7 @@ namespace seomoonsijang.Controllers
 
             if (file != null & contents != null)
             {
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("westgateproject_AzureStorageConnectionString"));
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference("blob1");
@@ -73,12 +73,14 @@ namespace seomoonsijang.Controllers
                 CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
                 CloudTable table = tableClient.GetTableReference("WestGateMarket");
                 ViewBag.TableSuccess = table.CreateIfNotExists();
+                contents.PartitionKey = "파티션키1";
+                contents.RowKey = "로우키1";
                 contents.filename = file.FileName;
                 TableOperation insertOperation = TableOperation.Insert(contents);
                 TableResult result = table.Execute(insertOperation);
                 ViewBag.TableName = table.Name;
                 ViewBag.Result = result.HttpStatusCode;
-                
+
                 CloudBlockBlob blob = container.GetBlockBlobReference(file.FileName);
                 blob.UploadFromStream(file.InputStream);
                 ViewBag.Message = file.FileName;
@@ -86,15 +88,17 @@ namespace seomoonsijang.Controllers
             }
             else if(file == null & contents != null)
             {
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("westgateproject_AzureStorageConnectionString"));
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
                 CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
                 CloudTable table = tableClient.GetTableReference("WestGateMarket");
                 ViewBag.TableSuccess = table.CreateIfNotExists();
+                contents.PartitionKey = "파티션키";
+                contents.RowKey = "로우키";
                 TableOperation insertOperation = TableOperation.Insert(contents);
                 TableResult result = table.Execute(insertOperation);
                 ViewBag.TableName = table.Name;
                 ViewBag.Result = result.HttpStatusCode;
-                ViewBag.Message = contents.PartitionKey + contents.RowKey + contents.text;
+                ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.text;
             }
             else
             {

@@ -24,7 +24,7 @@
             ]
         </dd>
         
-    @*
+    
     <dt>외부 로그인:</dt>
     <dd>
         @Model.Logins.Count [
@@ -35,9 +35,7 @@
          See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
             for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
-         Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
+         Uncomment the following block after you have set up two-factor authentication 
             <dt>전화 번호:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")
@@ -51,13 +49,12 @@
                         <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
                     }
                 }
-                else
+                @else
                 {
                     <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
                 }
             </dd>
-        *@
-        @*<dt>2단계 인증:</dt>
+       <dt>2단계 인증:</dt>
     <dd>
         <p>
             There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
@@ -83,6 +80,6 @@
                     </text>
                 }
             }
-        </dd>*@
+        </dd>
     </dl>
 </div>
