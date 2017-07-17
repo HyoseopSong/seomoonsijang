@@ -3,7 +3,7 @@
     ViewBag.Title = "관리";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
@@ -23,18 +23,19 @@
             }
             ]
         </dd>
-        <dt>외부 로그인:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("관리", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
+        
+    @*
+    <dt>외부 로그인:</dt>
+    <dd>
+        @Model.Logins.Count [
+        @Html.ActionLink("관리", "ManageLogins") ]
+    </dd>
+        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+         Uncomment the following block after you have set up two-factor authentication
         *@
         @*  
             <dt>전화 번호:</dt>
@@ -56,32 +57,32 @@
                 }
             </dd>
         *@
-        <dt>2단계 인증:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
+        @*<dt>2단계 인증:</dt>
+    <dd>
+        <p>
+            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication.
+        </p>
+        @if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>사용
-                        <input type="submit" value="사용 안 함" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>사용
+                    <input type="submit" value="사용 안 함" class="btn btn-link" />
+                    </text>
                 }
-                else
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>사용 안 함
-                        <input type="submit" value="사용" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
+                    @Html.AntiForgeryToken()
+                    <text>사용 안 함
+                    <input type="submit" value="사용" class="btn btn-link" />
+                    </text>
+                }
+            }
+        </dd>*@
     </dl>
 </div>

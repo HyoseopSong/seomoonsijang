@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using seomoonsijang.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace seomoonsijang
@@ -8,6 +9,7 @@ namespace seomoonsijang
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new RequireHttpsAttribute());
         }
     }
 }

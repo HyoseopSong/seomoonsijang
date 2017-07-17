@@ -58,11 +58,11 @@ namespace seomoonsijang
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "62511156556-qvinj04gvn5ipq3127s1k03ke54dta8g.apps.googleusercontent.com",
+                ClientSecret = "o0_UWQP0oO2hWMorkWAvut4S"
+            });
         }
     }
 }

@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44328</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -210,10 +210,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\쇠젓가락\Controllers\HomeController.cs" />
+    <Compile Include="Areas\쇠젓가락\쇠젓가락AreaRegistration.cs" />
+    <Compile Include="Areas\칭기즈칸\Controllers\HomeController.cs" />
+    <Compile Include="Areas\칭기즈칸\칭기즈칸AreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FloorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Filters\MyRequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,7 +251,16 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Connected Services\westgateprojectAzureStorage\ConnectedService.json" />
+    <Content Include="Areas\쇠젓가락\Views\web.config" />
+    <Content Include="Areas\쇠젓가락\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\쇠젓가락\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\쇠젓가락\Views\Home\Index.cshtml" />
+    <Content Include="Areas\칭기즈칸\Views\web.config" />
+    <Content Include="Areas\칭기즈칸\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\칭기즈칸\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\칭기즈칸\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\seomoonsijang - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\seomoonsijang20170711103235 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -313,6 +327,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\쇠젓가락\Models\" />
+    <Folder Include="Areas\칭기즈칸\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -338,7 +354,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63476</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63476/</IISUrl>
+          <IISUrl>http://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

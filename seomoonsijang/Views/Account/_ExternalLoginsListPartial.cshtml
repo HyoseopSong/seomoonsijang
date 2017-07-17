@@ -5,6 +5,7 @@
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    Model.ReturnUrl = "/Manage/Index";
     if (loginProviders.Count() == 0) {
         <div>
             <p>

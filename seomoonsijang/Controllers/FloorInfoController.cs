@@ -39,7 +39,7 @@ namespace seomoonsijang.Controllers
             ViewBag.Message = "5지구 지상1층 상가 위치 정보 입니다.";
             return View();
         }
-        public ActionResult FifthtSecond()
+        public ActionResult FifthSecond()
         {
             ViewBag.Message = "5지구 지상2층 상가 위치 정보 입니다.";
             return View();
