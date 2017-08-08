@@ -7,9 +7,8 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>계정 설정 변경</h4>
     <hr />
-    <dl class="dl-horizontal">
+    @*<dl class="dl-horizontal">
         <dt>암호:</dt>
         <dd>
             [
@@ -49,9 +48,10 @@
                         <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
                     }
                 }
-                @else
+                else
                 {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+
                 }
             </dd>
        <dt>2단계 인증:</dt>
@@ -81,5 +81,5 @@
                 }
             }
         </dd>
-    </dl>
+    </dl>*@
 </div>

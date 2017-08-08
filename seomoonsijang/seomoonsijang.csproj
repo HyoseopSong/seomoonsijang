@@ -260,7 +260,6 @@
     <Content Include="Areas\칭기즈칸\Views\Home\Index.cshtml" />
     <Content Include="Connected Services\westgateprojectAzureStorage\ConnectedService.json" />
     <None Include="Properties\PublishProfiles\seomoonsijang - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\seomoonsijang20170711103235 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -314,15 +313,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\FloorInfo\SecondBaseFirst.cshtml" />
-    <Content Include="Views\FloorInfo\SecondFirst.cshtml" />
-    <Content Include="Views\FloorInfo\SecondSecond.cshtml" />
-    <Content Include="Views\FloorInfo\SecondThird.cshtml" />
-    <Content Include="Views\FloorInfo\SecondForth.cshtml" />
-    <Content Include="Views\FloorInfo\FifthFirst.cshtml" />
-    <Content Include="Views\FloorInfo\FifthSecond.cshtml" />
     <Content Include="Views\FloorInfo\DongsanFirst.cshtml" />
     <Content Include="Views\FloorInfo\DongsanSecond.cshtml" />
+    <Content Include="Views\FloorInfo\FifthFirst.cshtml" />
+    <Content Include="Views\FloorInfo\FifthSecond.cshtml" />
+    <Content Include="Views\FloorInfo\SecondBaseFirst.cshtml" />
+    <Content Include="Views\FloorInfo\SecondFirst.cshtml" />
+    <Content Include="Views\FloorInfo\SecondForth.cshtml" />
+    <Content Include="Views\FloorInfo\SecondSecond.cshtml" />
+    <Content Include="Views\FloorInfo\SecondThird.cshtml" />
     <Content Include="Views\FloorInfo\Union.cshtml" />
   </ItemGroup>
   <ItemGroup>

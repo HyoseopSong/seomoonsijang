@@ -4,11 +4,12 @@
 
 <div class="jumbotron">
     <h1>서문시장</h1>
+    <h2>@ViewBag.Orientation</h2>
     <p class="lead">서문시장 관련 정보를 제공해 드립니다.</p>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2>모바일로 보기</h2>
         <img src="https://westgateproject.blob.core.windows.net/blob1/storeIcon.jpg" width="262" height="193" alt="Available on Store" usemap="#storemap" />
         <map name="storemap">
@@ -16,21 +17,84 @@
             <area shape="rect" coords="0, 96.5, 262, 193" href="https://play.google.com/store/apps/details?id=hyoseop.metal.chopsticks.westgateproject" alt="Available on Google Play" />
         </map>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2>서문시장 약도</h2>
         <a href="/Home/About/">
             <img src="https://hyundaiplastic.blob.core.windows.net/test-blob-container/%E1%84%89%E1%85%A5%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%B5%E1%84%8C%E1%85%A1%E1%86%BC%20%E1%84%8C%E1%85%A9%E1%84%80%E1%85%A1%E1%86%B7%E1%84%83%E1%85%A9.png" width="300" height="217" alt="서문시장 약도" />
         </a>
     </div>
+</div>
+
+<div class="row">
+    <h2>&nbsp;최근 등록된 소식</h2>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%84%9C%EB%AC%B8%EC%8B%9C%EC%9E%A5%20%EC%9E%85%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">서문시장 동쪽 입구입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EB%8F%99%EC%82%B0%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/DongsanSecond/">동산상가 2층 동쪽 출입구 입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EA%B1%B4%ED%95%B4%EC%82%B0%EB%AC%BC%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">건해산물상가 입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/2%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/SecondFirst">2지구 입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/1%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">1지구 입구입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%95%84%EC%A7%84%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">아진상가 입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/5%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/2017-08-06%20PM%206%3A39%3A15.jpg" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a>
+        </p>
     </div>
 </div>
-<div>
-    <address>
-        <strong>운영자 홈페이지:</strong> <a href="http://	xn--o39ax1t4linng.xn--3e0b707e">http://쇠젓가락.한국</a><br />
-        <strong>운영자 e-mail :</strong> <a href="mailto:chopsticksOfMetal@gmail.com">chopsticksOfMetal@gmail.com</a>
-    </address>
-</div>
+    <div>
+        <address>
+            <strong>운영자 홈페이지:</strong> <a href="http://	xn--o39ax1t4linng.xn--3e0b707e">http://쇠젓가락.한국</a><br />
+            <strong>운영자 e-mail :</strong> <a href="mailto:chopsticksOfMetal@gmail.com">chopsticksOfMetal@gmail.com</a>
+        </address>
+    </div>
+    <script>
+        function rotateRight(element) {
+            if (element.style.transform == "rotate(90deg)") {
+                element.style.transform = "rotate(180deg)";
+            }
+            else if (element.style.transform == "rotate(180deg)") {
+                element.style.transform = "rotate(270deg)"
+            }
+            else if (element.style.transform == "rotate(270deg)") {
+                element.style.transform = "rotate(0deg)"
+            }
+            else {
+                element.style.transform = "rotate(90deg)"
+            }
+        }
+    </script>

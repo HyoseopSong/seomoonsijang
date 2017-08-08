@@ -60,8 +60,8 @@ namespace seomoonsijang
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "62511156556-qvinj04gvn5ipq3127s1k03ke54dta8g.apps.googleusercontent.com",
-                ClientSecret = "o0_UWQP0oO2hWMorkWAvut4S"
+                ClientId = "62511156556-a00tlqg2dmt7u4ab3qtjs98l71g9082c.apps.googleusercontent.com",
+                ClientSecret = "qGImeHHAt_G9ZEwrR1cPayyw"
             });
         }
     }

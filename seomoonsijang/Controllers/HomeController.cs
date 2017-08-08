@@ -13,6 +13,8 @@ using Microsoft.WindowsAzure.Storage.Table;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Net;
 
 namespace seomoonsijang.Controllers
 {
@@ -20,6 +22,19 @@ namespace seomoonsijang.Controllers
     {
         public ActionResult Index()
         {
+            var webClient = new WebClient();
+            byte[] imageBytes = webClient.DownloadData(@"https://westgateproject.blob.core.windows.net/blob1/2017-08-06%20PM%206%3A39%3A15.jpg");
+
+            WebRequest req = WebRequest.Create(@"https://westgateproject.blob.core.windows.net/blob1/2017-08-06%20PM%206%3A39%3A15.jpg");
+            WebResponse response = req.GetResponse();
+            Image img = Image.FromStream(response.GetResponseStream());
+
+            // Get the index of the orientation property.
+            int orientation_index =
+                Array.IndexOf(img.PropertyIdList, 0x0112);
+                       
+
+            ViewBag.Orientation = img.GetPropertyItem(0x0112).Value[0];
             return View();
         }
 
@@ -59,50 +74,42 @@ namespace seomoonsijang.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult Contact(HttpPostedFileBase file, ContentsEntity contents)
         {
 
-            if (file != null & contents != null)
-            {
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
+            var blobName = DateTime.Now.ToString();
+            blobName = blobName.Replace("/", "-");
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
+            if (file != null)
+            {
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference("blob1");
-                ViewBag.BlobSuccess = container.CreateIfNotExists();
-
-                CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-                CloudTable table = tableClient.GetTableReference("WestGateMarket");
-                ViewBag.TableSuccess = table.CreateIfNotExists();
-                contents.PartitionKey = "파티션키1";
-                contents.RowKey = "로우키1";
-                contents.filename = file.FileName;
-                TableOperation insertOperation = TableOperation.Insert(contents);
-                TableResult result = table.Execute(insertOperation);
-                ViewBag.TableName = table.Name;
-                ViewBag.Result = result.HttpStatusCode;
-
-                CloudBlockBlob blob = container.GetBlockBlobReference(file.FileName);
+                CloudBlockBlob blob = container.GetBlockBlobReference(blobName);
+                blob.Properties.ContentType = "image/jpeg";
                 blob.UploadFromStream(file.InputStream);
+                
                 ViewBag.Message = file.FileName;
-                               
-            }
-            else if(file == null & contents != null)
-            {
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
-                CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-                CloudTable table = tableClient.GetTableReference("WestGateMarket");
-                ViewBag.TableSuccess = table.CreateIfNotExists();
-                contents.PartitionKey = "파티션키";
-                contents.RowKey = "로우키";
-                TableOperation insertOperation = TableOperation.Insert(contents);
-                TableResult result = table.Execute(insertOperation);
-                ViewBag.TableName = table.Name;
-                ViewBag.Result = result.HttpStatusCode;
-                ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.text;
+
             }
             else
             {
-                
+                blobName = "empty";
+            }
+
+            if (contents != null)
+            {
+                CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+                CloudTable table = tableClient.GetTableReference("WestGateMarket");
+                ViewBag.TableSuccess = table.CreateIfNotExists();
+                contents.PartitionKey = User.Identity.Name;
+                contents.RowKey = blobName;
+                TableOperation insertOperation = TableOperation.Insert(contents);
+                TableResult result = table.Execute(insertOperation);
+                ViewBag.TableName = table.Name;
+                ViewBag.Result = result.HttpStatusCode;
+                ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.Text;
             }
             
             return View();

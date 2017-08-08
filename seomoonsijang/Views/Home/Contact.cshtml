@@ -1,16 +1,111 @@
 ﻿@model seomoonsijang.Models.ContentsEntity
 @{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "계정 관리";
 }
 <h2>@ViewBag.Title</h2>
         @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
         {
             <input type="file" name="file" /><br />
-            @Html.TextBoxFor(contents => contents.text, new { style = "width:100%;height:100%" })<br />
+            <div id="col-md-1 preview">
+                <img id="imagePreview" src="#" alt="Preview upload images" style="width:500px; display:none" />
+            </div>
+            <br />
+            <div id="col-md-12">
+                @Html.TextBoxFor(contents => contents.Text, new { style = "width:100%;height:100%" })<br />
+            </div>
             <input type="submit" value="Upload" />
             
         }
-    <div class = "col-lg-12">
+    @*<div class = "col-lg-12">
         <h3>@ViewBag.Message</h3>
         Insert of entity into @ViewBag.TableName @(ViewBag.Result == 204 ? "succeeded" : "failed")
+    </div>*@
+<div class="row">
+    <h2>&nbsp;내가 등록한 소식</h2>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%84%9C%EB%AC%B8%EC%8B%9C%EC%9E%A5%20%EC%9E%85%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">서문시장 동쪽 입구입니다.</a><button>삭제</button>
+        </p>
     </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EB%8F%99%EC%82%B0%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/DongsanSecond/">동산상가 2층 동쪽 출입구 입니다.</a><button>삭제</button>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EA%B1%B4%ED%95%B4%EC%82%B0%EB%AC%BC%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">건해산물상가 입니다.</a><button>삭제</button>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/2%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/SecondFirst">2지구 입니다.</a><button>삭제</button>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/1%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">1지구 입구입니다.</a><button>삭제</button>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%95%84%EC%A7%84%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/Home/About/">아진상가 입니다.</a><button>삭제</button>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://westgateproject.blob.core.windows.net/blob1/5%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+        <p>
+            <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a><button>삭제</button>
+        </p>
+    </div>
+</div>
+
+<script>
+    function readUploadImage(inputObject) {
+        if (window.File && window.FileReader) {
+            if (inputObject.files && inputObject.files[0]) {
+                if (!(/image/i).test(inputObject.files[0].type)) {
+                    alert("It's not image file.");
+                    return false;
+                }
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagePreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(inputObject.files[0]);
+            }
+        } else {
+            alert("Preview can't be working.");
+        }
+    }
+
+    $("#uploadImage").change(function () {
+        readUploadImage(this);
+
+        var x = document.getElementById('imagePreview');
+        x.style.display = 'block';
+    });
+
+    function rotateRight(element) {
+        if (element.style.transform == "rotate(90deg)") {
+            element.style.transform = "rotate(180deg)";
+        }
+        else if (element.style.transform == "rotate(180deg)") {
+            element.style.transform = "rotate(270deg)"
+        }
+        else if (element.style.transform == "rotate(270deg)") {
+            element.style.transform = "rotate(0deg)"
+        }
+        else {
+            element.style.transform = "rotate(90deg)"
+        }
+    }
+</script>

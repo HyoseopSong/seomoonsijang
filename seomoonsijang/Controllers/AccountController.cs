@@ -386,6 +386,17 @@ namespace seomoonsijang.Controllers
         }
 
         //
+        // POST: /Account/ExternalLoginRegisterFromMobile
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<bool> ExternalLoginRegisterFromMobile(string email)
+        {
+            var user = new ApplicationUser { UserName = email, Email = email };
+            var result = await UserManager.CreateAsync(user);
+            return result.Succeeded;
+        }
+
+        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
