@@ -7,14 +7,17 @@ namespace seomoonsijang.Models
 {
     public class ContentsEntity : TableEntity
     {
-        public ContentsEntity(string patKey, string rKey)
+        public ContentsEntity(string id, string blobName, string shopName, string text)
         {
-            PartitionKey = patKey;
-            RowKey = rKey;
+            PartitionKey = id;
+            RowKey = blobName;
+            ShopName = shopName;
+            Context = text;
         }
 
         public ContentsEntity() { }
 
-        public string Text { get; set; }
+        public string ShopName { get; set; }
+        public string Context { get; set; }
     }
 }

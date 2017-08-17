@@ -218,6 +218,8 @@
     <Compile Include="Controllers\FloorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataObjects\IndexToView.cs" />
+    <Compile Include="DataObjects\RecentEntity.cs" />
     <Compile Include="Filters\MyRequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using seomoonsijang.Models;
 using Microsoft.WindowsAzure.Storage.Table;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Net;
+using seomoonsijang.DataObjects;
 
 namespace seomoonsijang.Controllers
 {
@@ -22,20 +17,28 @@ namespace seomoonsijang.Controllers
     {
         public ActionResult Index()
         {
-            var webClient = new WebClient();
-            byte[] imageBytes = webClient.DownloadData(@"https://westgateproject.blob.core.windows.net/blob1/2017-08-06%20PM%206%3A39%3A15.jpg");
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
-            WebRequest req = WebRequest.Create(@"https://westgateproject.blob.core.windows.net/blob1/2017-08-06%20PM%206%3A39%3A15.jpg");
-            WebResponse response = req.GetResponse();
-            Image img = Image.FromStream(response.GetResponseStream());
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
-            // Get the index of the orientation property.
-            int orientation_index =
-                Array.IndexOf(img.PropertyIdList, 0x0112);
-                       
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference("Recent");
+            TableQuery<RecentEntity> query = new TableQuery<RecentEntity>();
 
-            ViewBag.Orientation = img.GetPropertyItem(0x0112).Value[0];
-            return View();
+            List<IndexToView> myActivity = new List<IndexToView>();
+            // Print the fields for each customer.
+            foreach (RecentEntity entity in table.ExecuteQuery(query))
+            {
+                var imageURL = "https://westgateproject.blob.core.windows.net/" + entity.PartitionKey.Split('@')[0] + "/" + entity.RowKey;
+                var imgOrientation = ImageOrientation(imageURL);
+                var text = entity.Text;
+                var shopName = "/" + entity.ShopName;
+                IndexToView result = new IndexToView(shopName, imageURL, text, imgOrientation);
+                myActivity.Add(result);
+            }
+            myActivity.Reverse();
+            return View(myActivity);
+            
         }
 
         public ActionResult About()
@@ -109,11 +112,24 @@ namespace seomoonsijang.Controllers
                 TableResult result = table.Execute(insertOperation);
                 ViewBag.TableName = table.Name;
                 ViewBag.Result = result.HttpStatusCode;
-                ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.Text;
+                ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.Context;
             }
             
             return View();
         }
         
+        protected int ImageOrientation(string imgURL)
+        {
+            WebRequest req = WebRequest.Create(imgURL);
+            WebResponse response = req.GetResponse();
+            Image img = Image.FromStream(response.GetResponseStream());
+
+            // Get the index of the orientation property.
+            int orientation_index =
+                Array.IndexOf(img.PropertyIdList, 0x0112);
+
+
+            return img.GetPropertyItem(0x0112).Value[0];
+        }
     }
 }

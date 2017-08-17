@@ -1,10 +1,10 @@
-﻿@{
+﻿@model List<seomoonsijang.DataObjects.IndexToView>
+@{
     ViewBag.Title = "";
 }
 
 <div class="jumbotron">
     <h1>서문시장</h1>
-    <h2>@ViewBag.Orientation</h2>
     <p class="lead">서문시장 관련 정보를 제공해 드립니다.</p>
 </div>
 
@@ -27,54 +27,16 @@
 
 <div class="row">
     <h2>&nbsp;최근 등록된 소식</h2>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%84%9C%EB%AC%B8%EC%8B%9C%EC%9E%A5%20%EC%9E%85%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">서문시장 동쪽 입구입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EB%8F%99%EC%82%B0%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/DongsanSecond/">동산상가 2층 동쪽 출입구 입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EA%B1%B4%ED%95%B4%EC%82%B0%EB%AC%BC%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">건해산물상가 입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/2%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/SecondFirst">2지구 입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/1%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">1지구 입구입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%95%84%EC%A7%84%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">아진상가 입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/5%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/2017-08-06%20PM%206%3A39%3A15.jpg" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a>
-        </p>
-    </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <img src=@item.BlobURL style="width:300px; height:300px; object-fit:contain; @item.Orientation">
+            <p>
+                <h4 style="font-weight:bold"><a href=@item.ShopName>@item.Text</a></h4>
+            </p>
+        </div>
+    }
 </div>
     <div>
         <address>
