@@ -1,111 +1,172 @@
-﻿@model seomoonsijang.Models.ContentsEntity
+﻿@model List<seomoonsijang.DataObjects.UserInfoEntity>
 @{
     ViewBag.Title = "계정 관리";
 }
 <h2>@ViewBag.Title</h2>
-        @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="file" /><br />
-            <div id="col-md-1 preview">
-                <img id="imagePreview" src="#" alt="Preview upload images" style="width:500px; display:none" />
-            </div>
-            <br />
-            <div id="col-md-12">
-                @Html.TextBoxFor(contents => contents.Text, new { style = "width:100%;height:100%" })<br />
-            </div>
-            <input type="submit" value="Upload" />
-            
-        }
-    @*<div class = "col-lg-12">
-        <h3>@ViewBag.Message</h3>
-        Insert of entity into @ViewBag.TableName @(ViewBag.Result == 204 ? "succeeded" : "failed")
-    </div>*@
-<div class="row">
-    <h2>&nbsp;내가 등록한 소식</h2>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%84%9C%EB%AC%B8%EC%8B%9C%EC%9E%A5%20%EC%9E%85%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">서문시장 동쪽 입구입니다.</a><button>삭제</button>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EB%8F%99%EC%82%B0%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/DongsanSecond/">동산상가 2층 동쪽 출입구 입니다.</a><button>삭제</button>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EA%B1%B4%ED%95%B4%EC%82%B0%EB%AC%BC%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">건해산물상가 입니다.</a><button>삭제</button>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/2%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/SecondFirst">2지구 입니다.</a><button>삭제</button>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/1%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">1지구 입구입니다.</a><button>삭제</button>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%95%84%EC%A7%84%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/Home/About/">아진상가 입니다.</a><button>삭제</button>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <img src="https://westgateproject.blob.core.windows.net/blob1/5%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
-        <p>
-            <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a><button>삭제</button>
-        </p>
-    </div>
-</div>
+<h2>@ViewBag.Message</h2>
+@*1. 건물별 Table에 매장정보 입력
+    2. UserInformation Table에 Paid True로 바꿔주기
+    여기까지하면 앱은 완료
 
-<script>
-    function readUploadImage(inputObject) {
-        if (window.File && window.FileReader) {
-            if (inputObject.files && inputObject.files[0]) {
-                if (!(/image/i).test(inputObject.files[0].type)) {
-                    alert("It's not image file.");
-                    return false;
-                }
 
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#imagePreview').attr('src', e.target.result);
-                }
+    Area 생성하고 초기화면 설정
+    Link 생성 
+    
+    홈페이지 첫 화면에 서비스 소개랑 어떻게 쓰는지 2개 포스팅 해두기
 
-                reader.readAsDataURL(inputObject.files[0]);
+
+    *@
+@using (Html.BeginForm("Contact", "Home", FormMethod.Get))
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-1">매장위치</th>
+                <th class="col-md-1">매장이름</th>
+                <th class="col-md-1">지불방법</th>
+                <th class="col-md-9">추가요청</th>
+                <th class="col-md-1">전화번호</th>
+                <th class="col-md-1">지불여부</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PartitionKey</td>
+                    <td>@item.RowKey</td>
+                    <td>@item.ShopName</td>
+                    <td>@item.Payment</td>  
+                    <td>@item.AddInfo</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Paid</td>
+                    <td><input type="checkbox" name="homepage" value="@item.PartitionKey^@item.RowKey^@item.ShopName"></td>
+                </tr>
             }
-        } else {
-            alert("Preview can't be working.");
-        }
-    }
+        </tbody>
 
-    $("#uploadImage").change(function () {
-        readUploadImage(this);
+    </table>
+    <input type="submit" value="완료">
+}
 
-        var x = document.getElementById('imagePreview');
-        x.style.display = 'block';
-    });
 
-    function rotateRight(element) {
-        if (element.style.transform == "rotate(90deg)") {
-            element.style.transform = "rotate(180deg)";
-        }
-        else if (element.style.transform == "rotate(180deg)") {
-            element.style.transform = "rotate(270deg)"
-        }
-        else if (element.style.transform == "rotate(270deg)") {
-            element.style.transform = "rotate(0deg)"
-        }
-        else {
-            element.style.transform = "rotate(90deg)"
-        }
-    }
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    @*      @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    <input type="file" name="file" /><br />
+                    <div id="col-md-1 preview">
+                        <img id="imagePreview" src="#" alt="Preview upload images" style="width:500px; display:none" />
+                    </div>
+                    <br />
+                    <div id="col-md-12">
+                        @Html.TextBoxFor(contents => contents.Context, new { style = "width:100%;height:100%" })<br />
+                    </div>
+                    <input type="submit" value="Upload" />
+
+                }
+            <div class = "col-lg-12">
+                <h3>@ViewBag.Message</h3>
+                Insert of entity into @ViewBag.TableName @(ViewBag.Result == 204 ? "succeeded" : "failed")
+            </div>
+        <div class="row">
+            <h2>&nbsp;내가 등록한 소식</h2>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%84%9C%EB%AC%B8%EC%8B%9C%EC%9E%A5%20%EC%9E%85%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/Home/About/">서문시장 동쪽 입구입니다.</a><button>삭제</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/%EB%8F%99%EC%82%B0%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/FloorInfo/DongsanSecond/">동산상가 2층 동쪽 출입구 입니다.</a><button>삭제</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/%EA%B1%B4%ED%95%B4%EC%82%B0%EB%AC%BC%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/Home/About/">건해산물상가 입니다.</a><button>삭제</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/2%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/FloorInfo/SecondFirst">2지구 입니다.</a><button>삭제</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/1%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/Home/About/">1지구 입구입니다.</a><button>삭제</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/%EC%95%84%EC%A7%84%EC%83%81%EA%B0%80" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/Home/About/">아진상가 입니다.</a><button>삭제</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://westgateproject.blob.core.windows.net/blob1/5%EC%A7%80%EA%B5%AC" onclick="rotateRight(this)" style="max-width:300px;max-height:300px" />
+                <p>
+                    <a class="btn btn-default" href="/FloorInfo/FifthFirst/">5지구 입니다.</a><button>삭제</button>
+                </p>
+            </div>
+        </div>
+
+        <script>
+            function readUploadImage(inputObject) {
+                if (window.File && window.FileReader) {
+                    if (inputObject.files && inputObject.files[0]) {
+                        if (!(/image/i).test(inputObject.files[0].type)) {
+                            alert("It's not image file.");
+                            return false;
+                        }
+
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#imagePreview').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(inputObject.files[0]);
+                    }
+                } else {
+                    alert("Preview can't be working.");
+                }
+            }
+
+            $("#uploadImage").change(function () {
+                readUploadImage(this);
+
+                var x = document.getElementById('imagePreview');
+                x.style.display = 'block';
+            });
+
+            function rotateRight(element) {
+                if (element.style.transform == "rotate(90deg)") {
+                    element.style.transform = "rotate(180deg)";
+                }
+                else if (element.style.transform == "rotate(180deg)") {
+                    element.style.transform = "rotate(270deg)"
+                }
+                else if (element.style.transform == "rotate(270deg)") {
+                    element.style.transform = "rotate(0deg)"
+                }
+                else {
+                    element.style.transform = "rotate(90deg)"
+                }
+            }
+        </script>*@

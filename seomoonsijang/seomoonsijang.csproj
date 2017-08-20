@@ -210,6 +210,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\로스촬드\Controllers\HomeController.cs" />
+    <Compile Include="Areas\로스촬드\로스촬드AreaRegistration.cs" />
     <Compile Include="Areas\쇠젓가락\Controllers\HomeController.cs" />
     <Compile Include="Areas\쇠젓가락\쇠젓가락AreaRegistration.cs" />
     <Compile Include="Areas\칭기즈칸\Controllers\HomeController.cs" />
@@ -218,8 +220,11 @@
     <Compile Include="Controllers\FloorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataObjects\BuildingEntity.cs" />
     <Compile Include="DataObjects\IndexToView.cs" />
     <Compile Include="DataObjects\RecentEntity.cs" />
+    <Compile Include="DataObjects\UserInfoEntity.cs" />
+    <Compile Include="DataObjects\UserInfoToView.cs" />
     <Compile Include="Filters\MyRequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -261,6 +266,10 @@
     <Content Include="Areas\칭기즈칸\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\칭기즈칸\Views\Home\Index.cshtml" />
     <Content Include="Connected Services\westgateprojectAzureStorage\ConnectedService.json" />
+    <Content Include="Areas\로스촬드\Views\web.config" />
+    <Content Include="Areas\로스촬드\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\로스촬드\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\로스촬드\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\seomoonsijang - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -328,6 +337,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\로스촬드\Models\" />
     <Folder Include="Areas\쇠젓가락\Models\" />
     <Folder Include="Areas\칭기즈칸\Models\" />
   </ItemGroup>

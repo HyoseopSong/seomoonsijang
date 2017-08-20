@@ -5,7 +5,8 @@
 
 <div class="jumbotron">
     <h1>서문시장</h1>
-    <p class="lead">서문시장 관련 정보를 제공해 드립니다.</p>
+    @ViewBag.ID
+    <p class="lead">지금 서문시장에서는 무슨 일이 일어나고 있을까요?</p>
 </div>
 
 <div class="row">
@@ -27,11 +28,10 @@
 
 <div class="row">
     <h2>&nbsp;최근 등록된 소식</h2>
-
     @foreach (var item in Model)
     {
         <div class="col-md-4">
-            <img src=@item.BlobURL style="width:300px; height:300px; object-fit:contain; @item.Orientation">
+            <img src=@item.BlobURL style="width:350px; height:350px; object-fit:contain; @item.Orientation">
             <p>
                 <h4 style="font-weight:bold"><a href=@item.ShopName>@item.Text</a></h4>
             </p>
