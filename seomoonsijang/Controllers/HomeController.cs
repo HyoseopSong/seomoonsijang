@@ -17,25 +17,25 @@ namespace seomoonsijang.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.ID = User.Identity.Name;
+            //ViewBag.ID = User.Identity.Name;
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("Recent");
-            TableQuery<RecentEntity> query = new TableQuery<RecentEntity>();
+            TableQuery<ContentsEntity> query = new TableQuery<ContentsEntity>();
 
             List<IndexToView> myActivity = new List<IndexToView>();
             // Print the fields for each customer.
-            foreach (RecentEntity entity in table.ExecuteQuery(query))
+            foreach (ContentsEntity entity in table.ExecuteQuery(query))
             {
                 var imageURL = "https://westgateproject.blob.core.windows.net/" + entity.PartitionKey.Split('@')[0] + "/" + entity.RowKey;
                 var imgOrientation = ImageOrientation(imageURL);
-                var text = entity.Text;
-                if (entity.Text.Length > 20)
+                var text = entity.Context;
+                if (entity.Context.Length > 20)
                 {
-                    text = entity.Text.Substring(0, 20) + "...";
+                    text = entity.Context.Substring(0, 20) + "...";
                 }
                 var shopName = "/" + entity.ShopName;
                 IndexToView result = new IndexToView(shopName, imageURL, text, imgOrientation);
@@ -55,12 +55,12 @@ namespace seomoonsijang.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Contact(List<string> homepage)
+        public ActionResult Contact(List<string> register, int? months, string userInfo, string keepInfo, List<string> timeover, List<string> delete)
         {
             ViewBag.Message = User.Identity.Name;
             if (User.Identity.Name != "lsaforever0217@gmail.com")
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
@@ -69,12 +69,134 @@ namespace seomoonsijang.Controllers
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("UserInformation");
 
-
-            if (homepage != null)
+            if(delete != null)
             {
-                foreach (string val in homepage)
+                foreach(var i in delete)
                 {
-                    ViewBag.Message += " " + val;
+                    //유저인포에서 해당 매장 삭제, 계정 테이블에서 해당 매장으로 등록된 블롭 삭제
+                    var value = i.Split('^');
+
+                    var OwnerID = value[0];
+                    var OwnerIDforTable = OwnerID.Split('@')[0];
+                    var ShopLocation = value[1];
+                    var ShopName = value[2];
+
+                    TableOperation retrieveOperation = TableOperation.Retrieve<UserInfoEntity>(OwnerID, ShopLocation);
+                    TableResult retrievedResult = table.Execute(retrieveOperation);
+
+                    UserInfoEntity deleteEntity = (UserInfoEntity)retrievedResult.Result;
+
+                    // Print the phone number of the result.
+                    if (deleteEntity != null)
+                    {
+                        TableOperation updateOperation = TableOperation.Delete(deleteEntity);
+                        table.Execute(updateOperation);
+                    }
+
+
+                    CloudTable tableOfOwner = tableClient.GetTableReference(OwnerIDforTable);
+
+                    TableQuery<ContentsEntity> queryShopName = new TableQuery<ContentsEntity>().Where(
+                                TableQuery.GenerateFilterCondition("ShopName", QueryComparisons.Equal, ShopName));
+                                        
+                    foreach (ContentsEntity entity in tableOfOwner.ExecuteQuery(queryShopName))
+                    {
+                        TableOperation deleteOperation = TableOperation.Delete(entity);
+                        tableOfOwner.Execute(deleteOperation);
+                    }
+
+                    var tempBuilding = ShopLocation.Split(':');
+                    var building = tempBuilding[0];
+                    var floor = tempBuilding[1];
+                    var location = tempBuilding[2];
+
+                    CloudTable BuildingTable = tableClient.GetTableReference(building);
+                    TableOperation retrieveBuildingInfoOperation = TableOperation.Retrieve<BuildingEntity>(floor, location);
+                    TableResult retrievedBuildingInfoResult = BuildingTable.Execute(retrieveBuildingInfoOperation);
+
+                    BuildingEntity buildingInfoEntity = (BuildingEntity)retrievedBuildingInfoResult.Result;
+
+                    // Print the phone number of the result.
+                    if (buildingInfoEntity != null)
+                    {
+                        TableOperation deleteOperation = TableOperation.Delete(buildingInfoEntity);
+                        BuildingTable.Execute(deleteOperation);
+                    }
+
+                }
+            }
+            
+
+
+            if (months.HasValue && userInfo != null)
+            {
+
+                var value = userInfo.Split('^');
+
+                var OwnerID = value[0];
+                var ShopLocation = value[1];
+
+                TableOperation retrieveOperation = TableOperation.Retrieve<UserInfoEntity>(OwnerID, ShopLocation);
+                TableResult retrievedResult = table.Execute(retrieveOperation);
+
+                UserInfoEntity updateEntity = (UserInfoEntity)retrievedResult.Result;
+
+                // Print the phone number of the result.
+                if (updateEntity != null)
+                {
+                    updateEntity.Period = updateEntity.Period.AddMonths(months.Value);
+                    TableOperation updateOperation = TableOperation.Replace(updateEntity);
+                    table.Execute(updateOperation);
+                }
+            }
+            else if(months.HasValue && keepInfo != null)
+            {
+                var value = keepInfo.Split('^');
+
+                var OwnerID = value[0];
+                var ShopLocation = value[1];
+
+                TableOperation retrieveOperation = TableOperation.Retrieve<UserInfoEntity>(OwnerID, ShopLocation);
+                TableResult retrievedResult = table.Execute(retrieveOperation);
+
+                UserInfoEntity updateEntity = (UserInfoEntity)retrievedResult.Result;
+
+                // Print the phone number of the result.
+                if (updateEntity != null)
+                {
+                    updateEntity.Period = DateTime.Now.AddMonths(months.Value);
+                    updateEntity.Paid = true;
+                    TableOperation updateOperation = TableOperation.Replace(updateEntity);
+                    table.Execute(updateOperation);
+                }
+
+                //건물 테이블에서 온서비스 트루로 바꿔주기
+                var tempBuilding = ShopLocation.Split(':');
+                var building = tempBuilding[0];
+                var floor = tempBuilding[1];
+                var location = tempBuilding[2];
+
+                CloudTable BuildingTable = tableClient.GetTableReference(building);
+                BuildingTable.CreateIfNotExists();
+                TableOperation retrieveBuildingInfoOperation = TableOperation.Retrieve<BuildingEntity>(floor, location);
+                TableResult retrievedBuildingInfoResult = BuildingTable.Execute(retrieveBuildingInfoOperation);
+
+                BuildingEntity buildingInfoEntity = (BuildingEntity)retrievedBuildingInfoResult.Result;
+
+                // Print the phone number of the result.
+                if (buildingInfoEntity != null)
+                {
+                    buildingInfoEntity.OnService = true;
+                    TableOperation updateOperation = TableOperation.Replace(buildingInfoEntity);
+                    BuildingTable.Execute(updateOperation);
+                }
+            }
+
+            if (register != null)
+            {
+                foreach (string val in register)
+                {
+                    
                     var value = val.Split('^');
 
                     var OwnerID = value[0];
@@ -90,6 +212,8 @@ namespace seomoonsijang.Controllers
                     if (updateEntity != null)
                     {
                         updateEntity.Paid = true;
+                        updateEntity.Period = DateTime.Now.AddMonths(1);
+                        updateEntity.InitialRegister = false;
                         TableOperation updateOperation = TableOperation.Replace(updateEntity);
                         table.Execute(updateOperation);
                     }
@@ -99,24 +223,141 @@ namespace seomoonsijang.Controllers
                     var floor = tempBuilding[1];
                     var location = tempBuilding[2];
 
-                    CloudTable OwnerIDtable = tableClient.GetTableReference(building);
-
+                    CloudTable BuildingTable = tableClient.GetTableReference(building);
+                    BuildingTable.CreateIfNotExists();
                     BuildingEntity shopInfo = new BuildingEntity(floor, location, OwnerID, ShopName);
 
-                    TableOperation inserOperation = TableOperation.Insert(shopInfo);
-                    OwnerIDtable.Execute(inserOperation);
+                    TableOperation insertOperation = TableOperation.Insert(shopInfo);
+                    BuildingTable.Execute(insertOperation);
 
                 }
 
             }
 
-
-            TableQuery<UserInfoEntity> query = new TableQuery<UserInfoEntity>();
-            List<UserInfoEntity> result = new List<UserInfoEntity>();
-            foreach (UserInfoEntity entity in table.ExecuteQuery(query))
+            if(timeover != null)
             {
-                result.Add(entity);
+                foreach (string val in timeover)
+                {
+
+                    var value = val.Split('^');
+
+                    var OwnerID = value[0];
+                    var ShopLocation = value[1];
+                    var ShopName = value[2];
+
+                    TableOperation retrieveOperation = TableOperation.Retrieve<UserInfoEntity>(OwnerID, ShopLocation);
+                    TableResult retrievedResult = table.Execute(retrieveOperation);
+
+                    UserInfoEntity timeoverEntity = (UserInfoEntity)retrievedResult.Result;
+
+                    // Print the phone number of the result.
+                    if (timeoverEntity != null)
+                    {
+                        timeoverEntity.Paid = false;
+                        TableOperation updateOperation = TableOperation.Replace(timeoverEntity);
+                        table.Execute(updateOperation);
+                    }
+
+                    var tempBuilding = ShopLocation.Split(':');
+                    var building = tempBuilding[0];
+                    var floor = tempBuilding[1];
+                    var location = tempBuilding[2];
+
+                    CloudTable BuildingTable = tableClient.GetTableReference(building);
+
+
+                    TableOperation retrieveShopInfoOperation = TableOperation.Retrieve<BuildingEntity>(floor, location);
+                    TableResult retrievedShopInfoResult = BuildingTable.Execute(retrieveShopInfoOperation);
+
+                    BuildingEntity pauseShopInfoEntity = (BuildingEntity)retrievedShopInfoResult.Result;
+
+                    if (pauseShopInfoEntity != null)
+                    {
+                        pauseShopInfoEntity.OnService = false;
+                        TableOperation updateOperation = TableOperation.Replace(pauseShopInfoEntity);
+                        BuildingTable.Execute(updateOperation);
+                    }
+
+                    CloudTable tableOfRecent = tableClient.GetTableReference("Recent");
+
+                    TableQuery<ContentsEntity> queryRecent = new TableQuery<ContentsEntity>().Where(
+                                TableQuery.GenerateFilterCondition("ShopName", QueryComparisons.Equal, ShopName));
+
+                    foreach (ContentsEntity entity in tableOfRecent.ExecuteQuery(queryRecent))
+                    {
+                        TableOperation deleteOperation = TableOperation.Delete(entity);
+                        tableOfRecent.Execute(deleteOperation);
+                    }
+                }
             }
+
+            List<UserInfoEntity>[] result = new List<UserInfoEntity>[5];
+            List<UserInfoEntity> resultFalse = new List<UserInfoEntity>();   
+            TableQuery<UserInfoEntity> queryFalse = new TableQuery<UserInfoEntity>().Where(
+                        TableQuery.GenerateFilterConditionForBool("InitialRegister", QueryComparisons.Equal, true));
+            foreach (UserInfoEntity entity in table.ExecuteQuery(queryFalse))
+            {
+                resultFalse.Add(entity);
+            }
+            result[0] = resultFalse;
+
+            List<UserInfoEntity> resultInPeriod = new List<UserInfoEntity>();
+            TableQuery<UserInfoEntity> queryInPeriod = new TableQuery<UserInfoEntity>().Where(
+                TableQuery.GenerateFilterConditionForDate("Period", QueryComparisons.GreaterThanOrEqual, DateTime.Now));
+            foreach (UserInfoEntity entity in table.ExecuteQuery(queryInPeriod))
+            {
+                entity.Period = entity.Period.AddHours(9);
+                resultInPeriod.Add(entity);
+            }
+            result[1] = resultInPeriod;
+
+
+
+            //List<UserInfoEntity> resultOutPeriod = new List<UserInfoEntity>();
+            //TableQuery<UserInfoEntity> queryOutPeriod = new TableQuery<UserInfoEntity>().Where(
+            //    TableQuery.CombineFilters(
+            //    TableQuery.GenerateFilterConditionForDate("Period", QueryComparisons.LessThan, DateTime.Now),
+            //    TableOperators.And,
+            //    TableQuery.GenerateFilterConditionForBool("Paid", QueryComparisons.Equal, true)));
+            //foreach (UserInfoEntity entity in table.ExecuteQuery(queryOutPeriod))
+            //{
+            //    entity.Period = entity.Period.AddHours(9);
+            //    resultOutPeriod.Add(entity);
+            //}
+            //result[2] = resultOutPeriod;
+
+            List<UserInfoEntity> resultKeep = new List<UserInfoEntity>();
+            List<UserInfoEntity> resultKeepFalse = new List<UserInfoEntity>();
+            TableQuery<UserInfoEntity> queryKeep = new TableQuery<UserInfoEntity>().Where(
+                TableQuery.CombineFilters(
+                TableQuery.GenerateFilterConditionForDate("Period", QueryComparisons.LessThan, DateTime.Now),
+                TableOperators.And,
+                TableQuery.GenerateFilterConditionForDate("Period", QueryComparisons.GreaterThan, DateTime.Now.AddDays(-7))));
+            foreach (UserInfoEntity entity in table.ExecuteQuery(queryKeep))
+            {
+                if (entity.Paid)
+                {
+                    entity.Period = entity.Period.AddHours(9);
+                    resultKeep.Add(entity);
+                }
+                else
+                {
+                    entity.Period = entity.Period.AddHours(9);
+                    resultKeepFalse.Add(entity);
+                }
+            }
+            result[2] = resultKeep;
+            result[3] = resultKeepFalse;
+
+            List<UserInfoEntity> resultExpired = new List<UserInfoEntity>();
+            TableQuery<UserInfoEntity> queryExpired = new TableQuery<UserInfoEntity>().Where(
+                TableQuery.GenerateFilterConditionForDate("Period", QueryComparisons.LessThan, DateTime.Now.AddDays(-7)));
+            foreach (UserInfoEntity entity in table.ExecuteQuery(queryExpired))
+            {
+                entity.Period = entity.Period.AddHours(9);
+                resultExpired.Add(entity);
+            }
+            result[4] = resultExpired;
             //List<string> ID = new List<string>();
             //List<string> ShopLocation = new List<string>();
             //List<string> ShopName = new List<string>();
@@ -172,51 +413,50 @@ namespace seomoonsijang.Controllers
             //ViewBag.Message = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
             
         }
-        
-
-        //[HttpPost]
-        //[Authorize]
-        //public ActionResult Contact(HttpPostedFileBase file, ContentsEntity contents)
-        //{
-
-        //    var blobName = DateTime.Now.ToString();
-        //    blobName = blobName.Replace("/", "-");
-        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
-
-        //    if (file != null)
-        //    {
-        //        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-        //        CloudBlobContainer container = blobClient.GetContainerReference("blob1");
-        //        CloudBlockBlob blob = container.GetBlockBlobReference(blobName);
-        //        blob.Properties.ContentType = "image/jpeg";
-        //        blob.UploadFromStream(file.InputStream);
                 
-        //        ViewBag.Message = file.FileName;
+            //[HttpPost]
+            //[Authorize]
+            //public ActionResult Contact(HttpPostedFileBase file, ContentsEntity contents)
+            //{
 
-        //    }
-        //    else
-        //    {
-        //        blobName = "empty";
-        //    }
+            //    var blobName = DateTime.Now.ToString();
+            //    blobName = blobName.Replace("/", "-");
+            //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
-        //    if (contents != null)
-        //    {
-        //        CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-        //        CloudTable table = tableClient.GetTableReference("WestGateMarket");
-        //        ViewBag.TableSuccess = table.CreateIfNotExists();
-        //        contents.PartitionKey = User.Identity.Name;
-        //        contents.RowKey = blobName;
-        //        TableOperation insertOperation = TableOperation.Insert(contents);
-        //        TableResult result = table.Execute(insertOperation);
-        //        ViewBag.TableName = table.Name;
-        //        ViewBag.Result = result.HttpStatusCode;
-        //        ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.Context;
-        //    }
-            
-        //    return View();
-        //}
-        
-        protected int ImageOrientation(string imgURL)
+            //    if (file != null)
+            //    {
+            //        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            //        CloudBlobContainer container = blobClient.GetContainerReference("blob1");
+            //        CloudBlockBlob blob = container.GetBlockBlobReference(blobName);
+            //        blob.Properties.ContentType = "image/jpeg";
+            //        blob.UploadFromStream(file.InputStream);
+
+            //        ViewBag.Message = file.FileName;
+
+            //    }
+            //    else
+            //    {
+            //        blobName = "empty";
+            //    }
+
+            //    if (contents != null)
+            //    {
+            //        CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            //        CloudTable table = tableClient.GetTableReference("WestGateMarket");
+            //        ViewBag.TableSuccess = table.CreateIfNotExists();
+            //        contents.PartitionKey = User.Identity.Name;
+            //        contents.RowKey = blobName;
+            //        TableOperation insertOperation = TableOperation.Insert(contents);
+            //        TableResult result = table.Execute(insertOperation);
+            //        ViewBag.TableName = table.Name;
+            //        ViewBag.Result = result.HttpStatusCode;
+            //        ViewBag.Message = "PartitionKey : " + contents.PartitionKey + "RowKey : " + contents.RowKey + "Text : " + contents.Context;
+            //    }
+
+            //    return View();
+            //}
+
+            protected int ImageOrientation(string imgURL)
         {
             WebRequest req = WebRequest.Create(imgURL);
             WebResponse response = req.GetResponse();

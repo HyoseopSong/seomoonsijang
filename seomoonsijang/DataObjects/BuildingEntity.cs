@@ -14,12 +14,14 @@ namespace seomoonsijang.DataObjects
             RowKey = location;
             OwnerID = ownerID;
             ShopName = shopName;
+            OnService = true;
         }
 
         public BuildingEntity() { }
 
         public string OwnerID { get; set; }
         public string ShopName { get; set; }
+        public bool OnService { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@ namespace seomoonsijang.DataObjects
 {
     public class UserInfoEntity : TableEntity
     {
-        public UserInfoEntity(string id, string shopLocation, string shopName, string payment, string addInfo, string phoneNumber, bool paid)
+        public UserInfoEntity(string id, string shopLocation, string shopName, string payment, string addInfo, string phoneNumber, bool paid, bool initialRegister)
         {
             PartitionKey = id;
             RowKey = shopLocation;
@@ -17,6 +17,7 @@ namespace seomoonsijang.DataObjects
             AddInfo = addInfo;
             PhoneNumber = phoneNumber;
             Paid = paid;
+            InitialRegister = initialRegister;
         }
 
         public UserInfoEntity() { }
@@ -26,5 +27,7 @@ namespace seomoonsijang.DataObjects
         public string AddInfo { get; set; }
         public string PhoneNumber { get; set; }
         public bool Paid { get; set; }
+        public DateTime Period { get; set; }
+        public bool InitialRegister { get; set; }
     }
 }

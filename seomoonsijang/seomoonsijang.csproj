@@ -222,7 +222,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DataObjects\BuildingEntity.cs" />
     <Compile Include="DataObjects\IndexToView.cs" />
-    <Compile Include="DataObjects\RecentEntity.cs" />
     <Compile Include="DataObjects\UserInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoToView.cs" />
     <Compile Include="Filters\MyRequireHttpsAttribute.cs" />
