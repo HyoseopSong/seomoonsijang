@@ -9,6 +9,7 @@
     <div class="container">
         <ul class="nav navbar-nav">
             <li>@Html.ActionLink("승인 대기", "Index", "Admin")</li>
+            <li>@Html.ActionLink("홈페이지 신청", "Homepage", "Admin")</li>
             <li>@Html.ActionLink("서비스 중", "OnService", "Admin")</li>
             <li>@Html.ActionLink("기간 초과", "TimeOver", "Admin")</li>
             <li>@Html.ActionLink("보관 기간", "Keep", "Admin")</li>
@@ -28,8 +29,9 @@
                 <th class="col-md-1">매장위치</th>
                 <th class="col-md-1">매장이름</th>
                 <th class="col-md-1">지불방법</th>
-                <th class="col-md-9">사용기한</th>
+                <th class="col-md-1">사용기한</th>
                 <th class="col-md-1">전화번호</th>
+                <th class="col-md-1">홈페이지</th>
                 <th>삭제</th>
             </tr>
         </thead>
@@ -41,8 +43,9 @@
                     <td class="col-md-1">@item.RowKey</td>
                     <td class="col-md-1">@item.ShopName</td>
                     <td class="col-md-1">@item.Payment</td>
-                    <td class="col-md-9">@item.Period</td>
+                    <td class="col-md-1">@item.Period</td>
                     <td class="col-md-1">@item.PhoneNumber</td>
+                    <td class="col-md-1">@item.Homepage</td>
                     <td><input type="checkbox" name="delete" value="@item.PartitionKey^@item.RowKey^@item.ShopName"></td>
                 </tr>
             }

@@ -156,7 +156,59 @@ namespace seomoonsijang.Controllers
             //ViewBag.Message = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
 
         }
+        [HttpGet]
+        public ActionResult Homepage(List<string> homepage)
+        {
+            if (User.Identity.Name != "lsaforever0217@gmail.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference("UserInformation");
+
+            if (homepage != null)
+            {
+                foreach (string val in homepage)
+                {
+
+                    var value = val.Split('^');
+
+                    var OwnerID = value[0];
+                    var ShopLocation = value[1];
+
+                    TableOperation retrieveOperation = TableOperation.Retrieve<UserInfoEntity>(OwnerID, ShopLocation);
+                    TableResult retrievedResult = table.Execute(retrieveOperation);
+
+                    UserInfoEntity updateEntity = (UserInfoEntity)retrievedResult.Result;
+
+                    // Print the phone number of the result.
+                    if (updateEntity != null)
+                    {
+                        updateEntity.Homepage = "제작 완료";
+                        TableOperation updateOperation = TableOperation.Replace(updateEntity);
+                        table.Execute(updateOperation);
+                    }                  
+
+                }
+
+            }
+
+            List<UserInfoEntity> result = new List<UserInfoEntity>();
+            List<UserInfoEntity> resultHomepage = new List<UserInfoEntity>();
+            TableQuery<UserInfoEntity> queryHomepage = new TableQuery<UserInfoEntity>().Where(
+                        TableQuery.GenerateFilterCondition("Homepage", QueryComparisons.Equal, "신청 함"));
+            foreach (UserInfoEntity entity in table.ExecuteQuery(queryHomepage))
+            {
+                resultHomepage.Add(entity);
+            }
+            result = resultHomepage;
+
+            return View(result);
+        }
 
         [HttpGet]
         public ActionResult OnService(int? months, string userInfo)
@@ -200,8 +252,11 @@ namespace seomoonsijang.Controllers
                 TableQuery.GenerateFilterConditionForDate("Period", QueryComparisons.GreaterThanOrEqual, DateTime.Now));
             foreach (UserInfoEntity entity in table.ExecuteQuery(queryInPeriod))
             {
-                entity.Period = entity.Period.AddHours(9);
-                resultInPeriod.Add(entity);
+                if (entity.Paid)
+                {
+                    entity.Period = entity.Period.AddHours(9);
+                    resultInPeriod.Add(entity);
+                }
             }
             result = resultInPeriod;
 
@@ -267,10 +322,10 @@ namespace seomoonsijang.Controllers
 
                     CloudTable tableOfRecent = tableClient.GetTableReference("Recent");
 
-                    TableQuery<ContentsEntity> queryRecent = new TableQuery<ContentsEntity>().Where(
+                    TableQuery<RecentEntity> queryRecent = new TableQuery<RecentEntity>().Where(
                                 TableQuery.GenerateFilterCondition("ShopName", QueryComparisons.Equal, ShopName));
 
-                    foreach (ContentsEntity entity in tableOfRecent.ExecuteQuery(queryRecent))
+                    foreach (RecentEntity entity in tableOfRecent.ExecuteQuery(queryRecent))
                     {
                         TableOperation deleteOperation = TableOperation.Delete(entity);
                         tableOfRecent.Execute(deleteOperation);

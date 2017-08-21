@@ -18,8 +18,9 @@
     </div>
 </div>
 
-<h2>서비스 기간 만료 목록</h2>
-@using (Html.BeginForm("TimeOver", "Admin", FormMethod.Get))
+
+<h2>홈페이지 신청 목록</h2>
+@using (Html.BeginForm("Homepage", "Admin", FormMethod.Get))
 {
     <table class="table table-striped">
         <thead>
@@ -28,8 +29,8 @@
                 <th class="col-md-1">매장위치</th>
                 <th class="col-md-1">매장이름</th>
                 <th class="col-md-1">지불방법</th>
-                <th class="col-md-1">사용기한</th>
-                <th class="col-md-1">전화번호</th>
+                <th class="col-md-1">홈페이지</th>
+                <th class="col-md-1">신청여부</th>
                 <th></th>
             </tr>
         </thead>
@@ -37,16 +38,18 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td class="col-md-1">@item.PartitionKey</td>
-                    <td class="col-md-1">@item.RowKey</td>
-                    <td class="col-md-1">@item.ShopName</td>
-                    <td class="col-md-1">@item.Payment</td>
-                    <td class="col-md-1">@item.Period</td>
-                    <td class="col-md-1">@item.PhoneNumber</td>
-                    <td><input type="checkbox" name="timeover" value="@item.PartitionKey^@item.RowKey^@item.ShopName"></td>
+                    <td>@item.PartitionKey</td>
+                    <td>@item.RowKey</td>
+                    <td>@item.ShopName</td>
+                    <td>@item.Payment</td>
+                    <td>@item.AddInfo</td>
+                    <td>@item.Homepage</td>
+                    <td><input type="checkbox" name="homepage" value="@item.PartitionKey^@item.RowKey"></td>
                 </tr>
             }
         </tbody>
+
     </table>
-    <input class="btn pull-right" type="submit" value="기간 만료">
+    <input class="btn pull-right" type="submit" value="제작 완료">
 }
+

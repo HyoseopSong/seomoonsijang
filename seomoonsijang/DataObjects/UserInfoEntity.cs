@@ -29,5 +29,6 @@ namespace seomoonsijang.DataObjects
         public bool Paid { get; set; }
         public DateTime Period { get; set; }
         public bool InitialRegister { get; set; }
+        public string Homepage { get; set; }
     }
 }
