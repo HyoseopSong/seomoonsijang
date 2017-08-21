@@ -217,6 +217,7 @@
     <Compile Include="Areas\칭기즈칸\Controllers\HomeController.cs" />
     <Compile Include="Areas\칭기즈칸\칭기즈칸AreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FloorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -333,6 +334,11 @@
     <Content Include="Views\FloorInfo\SecondSecond.cshtml" />
     <Content Include="Views\FloorInfo\SecondThird.cshtml" />
     <Content Include="Views\FloorInfo\Union.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\OnService.cshtml" />
+    <Content Include="Views\Admin\TimeOver.cshtml" />
+    <Content Include="Views\Admin\Keep.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

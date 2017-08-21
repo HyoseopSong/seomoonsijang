@@ -1,0 +1,51 @@
+﻿@model List<seomoonsijang.DataObjects.UserInfoEntity>
+@{
+    ViewBag.Title = "계정 관리";
+}
+<h2><a href="/Admin">@ViewBag.Title</a></h2>
+
+
+<div>
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("승인 대기", "Index", "Admin")</li>
+            <li>@Html.ActionLink("서비스 중", "OnService", "Admin")</li>
+            <li>@Html.ActionLink("기간 초과", "TimeOver", "Admin")</li>
+            <li>@Html.ActionLink("보관 기간", "Keep", "Admin")</li>
+            <li>@Html.ActionLink("삭제 필요", "Delete", "Admin")</li>
+        </ul>
+    </div>
+</div>
+
+<h2>서비스 기간 만료 목록</h2>
+@using (Html.BeginForm("TimeOver", "Admin", FormMethod.Get))
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-1">매장위치</th>
+                <th class="col-md-1">매장이름</th>
+                <th class="col-md-1">지불방법</th>
+                <th class="col-md-9">사용기한</th>
+                <th class="col-md-1">전화번호</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-md-1">@item.PartitionKey</td>
+                    <td class="col-md-1">@item.RowKey</td>
+                    <td class="col-md-1">@item.ShopName</td>
+                    <td class="col-md-1">@item.Payment</td>
+                    <td class="col-md-9">@item.Period</td>
+                    <td class="col-md-1">@item.PhoneNumber</td>
+                    <td><input type="checkbox" name="timeover" value="@item.PartitionKey^@item.RowKey^@item.ShopName"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input class="btn pull-right" type="submit" value="기간 만료">
+}
