@@ -63,11 +63,18 @@ namespace seomoonsijang.Controllers
                     var location = tempBuilding[2];
 
                     CloudTable BuildingTable = tableClient.GetTableReference(building);
-                    BuildingTable.CreateIfNotExists();
-                    BuildingEntity shopInfo = new BuildingEntity(floor, location, OwnerID, ShopName);
 
-                    TableOperation insertOperation = TableOperation.Insert(shopInfo);
-                    BuildingTable.Execute(insertOperation);
+
+                    TableOperation retrieveBuildingOperation = TableOperation.Retrieve<BuildingEntity>(floor, location);
+                    TableResult retrievedBuildingResult = BuildingTable.Execute(retrieveBuildingOperation);
+                    BuildingEntity shopInfo = (BuildingEntity)retrievedBuildingResult.Result;
+
+                    if (shopInfo != null)
+                    {
+                        shopInfo.OnService = true;
+                        TableOperation updateOperation = TableOperation.Replace(shopInfo);
+                        BuildingTable.Execute(updateOperation);
+                    }
 
                 }
 

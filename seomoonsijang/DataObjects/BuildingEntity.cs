@@ -8,13 +8,13 @@ namespace seomoonsijang.DataObjects
 {
     public class BuildingEntity : TableEntity
     {
-        public BuildingEntity(string floor, string location, string ownerID, string shopName)
+        public BuildingEntity(string floor, string location, string ownerID, string shopName, bool onService)
         {
             PartitionKey = floor;
             RowKey = location;
             OwnerID = ownerID;
             ShopName = shopName;
-            OnService = true;
+            OnService = onService;
         }
 
         public BuildingEntity() { }
