@@ -1,18 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Net;
+using System.Drawing;
 
 namespace seomoonsijang.DataObjects
 {
     public class IndexToView
     {
-        public IndexToView(string shopName, string blobURL, string text, int orientation)
+        public IndexToView(string shopName, string blobURL, string text, int orientation, string location)
         {
             ShopName = shopName;
             BlobURL = blobURL;
             Text = text;
             Orientation = ImageRotation(orientation);
+            Location = location;
+        }
+
+        public IndexToView(string blobURL, string text)
+        {
+            ShopName = "";
+            BlobURL = blobURL;
+            Text = text;
+            Orientation = ImageRotation(ImageOrientation(blobURL));
         }
 
         public IndexToView()
@@ -24,6 +32,9 @@ namespace seomoonsijang.DataObjects
         public string BlobURL { get; set; }
         public string Text { get; set; }
         public string Orientation { get; set; }
+        public string Building { get; set; }
+        public string Floor { get; set; }
+        public string Location { get; set; }
 
         protected string ImageRotation(int orientation)
         {
@@ -73,6 +84,19 @@ namespace seomoonsijang.DataObjects
             
 
             return result;
+        }
+
+        protected int ImageOrientation(string imgURL)
+        {
+            WebRequest req = WebRequest.Create(imgURL);
+            WebResponse response = req.GetResponse();
+            Image img = Image.FromStream(response.GetResponseStream());
+
+            // Get the index of the orientation property.
+            int orientation_index =
+                Array.IndexOf(img.PropertyIdList, 0x0112);
+
+            return img.GetPropertyItem(0x0112).Value[0];
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿@model List<seomoonsijang.DataObjects.IndexToView>
+@{
+    ViewBag.Title = ViewBag.ShopName;
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.ShopName</h1>
+
+    <a href="/FloorInfo/@ViewBag.URL/">
+        <p class="lead">@ViewBag.Building &nbsp; @ViewBag.Floor &nbsp; @ViewBag.Location</p>
+    </a>
+    <p class="lead">@ViewBag.PhoneNumber</p>
+</div>
+
+
+<div class="row">
+    <h2>&nbsp;최근 등록된 소식</h2>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4" style="border: 1px solid gold;">
+            <img src=@item.BlobURL style="width:350px; height:350px; object-fit:contain; @item.Orientation">
+            <p>
+                <h4 style="font-weight:bold">@item.Text</h4>
+            </p>
+        </div>
+    }
+</div>

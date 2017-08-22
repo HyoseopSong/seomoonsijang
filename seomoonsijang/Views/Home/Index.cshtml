@@ -32,7 +32,7 @@
         <div class="col-md-4">
             <img src=@item.BlobURL style="width:350px; height:350px; object-fit:contain; @item.Orientation">
             <p>
-                <h4 style="font-weight:bold"><a href=@item.ShopName>@item.Text</a></h4>
+                <h4 style="font-weight:bold"><a href="~/FloorInfo/ShopInfoPage?building=@item.Location.Split(':')[0]&floor=@item.Location.Split(':')[1]&location=@item.Location.Split(':')[2]">@item.Text</a></h4>
             </p>
         </div>
     }

@@ -37,7 +37,7 @@ namespace seomoonsijang.Areas.쇠젓가락.Controllers
                 var imgOrientation = ImageOrientation(imageURL);
                 var text = entity.Context;
                 var shopName = "/" + entity.ShopName;
-                IndexToView result = new IndexToView(shopName, imageURL, text, imgOrientation);
+                IndexToView result = new IndexToView(shopName, imageURL, text, imgOrientation, "");
                 myActivity.Add(result);
             }            
             myActivity.Reverse();

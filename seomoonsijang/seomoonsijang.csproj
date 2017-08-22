@@ -224,6 +224,7 @@
     <Compile Include="DataObjects\BuildingEntity.cs" />
     <Compile Include="DataObjects\IndexToView.cs" />
     <Compile Include="DataObjects\RecentEntity.cs" />
+    <Compile Include="DataObjects\ShopInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoToView.cs" />
     <Compile Include="Filters\MyRequireHttpsAttribute.cs" />
@@ -341,6 +342,7 @@
     <Content Include="Views\Admin\Keep.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Homepage.cshtml" />
+    <Content Include="Views\FloorInfo\ShopInfoPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

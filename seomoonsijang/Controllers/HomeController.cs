@@ -33,12 +33,13 @@ namespace seomoonsijang.Controllers
                 var imageURL = "https://westgateproject.blob.core.windows.net/" + entity.ID.Split('@')[0] + "/" + entity.RowKey;
                 var imgOrientation = ImageOrientation(imageURL);
                 var text = entity.Context;
+                var location = entity.ShopLocation;
                 if (entity.Context.Length > 20)
                 {
                     text = entity.Context.Substring(0, 20) + "...";
                 }
                 var shopName = "/" + entity.ShopName;
-                IndexToView result = new IndexToView(shopName, imageURL, text, imgOrientation);
+                IndexToView result = new IndexToView(shopName, imageURL, text, imgOrientation, location);
                 myActivity.Add(result);
             }
             myActivity.Reverse();
