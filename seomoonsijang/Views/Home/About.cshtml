@@ -10,13 +10,13 @@
 <script type="text/javascript">
     if (window.innerWidth < 767)
         var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(35.8689905, 128.5801095),
-            zoom: 12
+            center: new naver.maps.LatLng(35.8680838081858, 128.580841355511),
+            zoom: 11
         });
     else
         var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(35.8689905, 128.5801095),
-            zoom: 13
+            center: new naver.maps.LatLng(35.8680838081858, 128.580841355511),
+            zoom: 12
         });
 
     var first = new naver.maps.Polygon({
@@ -92,6 +92,26 @@
     });
     naver.maps.Event.addListener(forth, 'click', function () {
         alert("4지구 화재 현장 복구 중 입니다..");
+    });
+
+    var forthAlter = new naver.maps.Polygon({
+        map: map,
+        paths: [[
+            new naver.maps.LatLng(35.866887, 128.58244),
+            new naver.maps.LatLng(35.866476, 128.582440),
+            new naver.maps.LatLng(35.866472, 128.582837),
+            new naver.maps.LatLng(35.866887, 128.582818)
+        ]],
+        strokeColor: '#808080',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.35,
+        zIndex: 1,
+        clickable: true
+    });
+    naver.maps.Event.addListener(forthAlter, 'click', function () {
+        alert("4지구 대체상가 지도 정보가 준비되지 않았습니다.");
     });
 
     var fifth = new naver.maps.Polygon({
