@@ -275,6 +275,8 @@
     <None Include="Properties\PublishProfiles\seomoonsijang - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="googlefe44631a0acd6688.html" />
+    <Content Include="naver6305ce0a66339b311bf09e62381f8780.html" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
