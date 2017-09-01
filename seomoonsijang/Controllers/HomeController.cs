@@ -49,12 +49,22 @@ namespace seomoonsijang.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "서문시장의 건물별 위치와 이름을 확인하실 수 있습니다.";
 
             return View();
         }
 
-        
+        public ActionResult HowToRegister()
+        {
+
+            return View();
+        }
+
+        public ActionResult Intro()
+        {
+            ViewBag.Message = "서문시장의 건물별 위치와 이름을 확인하실 수 있습니다.";
+
+            return View();
+        }
 
         protected int ImageOrientation(string imgURL)
         {
