@@ -15,61 +15,67 @@ namespace seomoonsijang.Controllers
     {
         public ActionResult SecondBaseFirst()
         {
-            ViewBag.Message = "2지구 지하1층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "2지구 지하1층 상가 위치 정보 입니다.";
             return View();
         }
         public ActionResult SecondFirst()
         {
-            ViewBag.Message = "2지구 지상1층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "2지구 지상1층 상가 위치 정보 입니다.";
             return View();
         }
         public ActionResult SecondSecond()
         {
-            ViewBag.Message = "2지구 지상2층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "2지구 지상2층 상가 위치 정보 입니다.";
             return View();
         }
         public ActionResult SecondThird()
         {
-            ViewBag.Message = "2지구 지상3층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "2지구 지상3층 상가 위치 정보 입니다.";
             return View();
         }
         public ActionResult SecondForth()
         {
-            ViewBag.Message = "2지구 지상4층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "2지구 지상4층 상가 위치 정보 입니다.";
             return View();
         }
 
         public ActionResult FifthFirst()
         {
-            ViewBag.Message = "5지구 지상1층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "5지구 지상1층 상가 위치 정보 입니다.";
             return View();
         }
         public ActionResult FifthSecond()
         {
-            ViewBag.Message = "5지구 지상2층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "5지구 지상2층 상가 위치 정보 입니다.";
             return View();
         }
 
         public ActionResult DongsanFirst()
         {
-            ViewBag.Message = "동산상가 지상1층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "동산상가 지상1층 상가 위치 정보 입니다.";
             return View();
         }
         public ActionResult DongsanSecond()
         {
-            ViewBag.Message = "동산상가 지상2층 상가 위치 정보 입니다.";
+            //ViewBag.Message = "동산상가 지상2층 상가 위치 정보 입니다.";
             return View();
         }
 
         public ActionResult Union()
         {
-            ViewBag.Message = "상가연합회 만남의 광장 정보 입니다.";
+            //ViewBag.Message = "상가연합회 만남의 광장 정보 입니다.";
+            return View();
+        }
+
+        public ActionResult EmptyShop(string building, string floor, string shop)
+        {
+
+            ViewBag.Message = building + " " + floor + " " + shop + "은(는) 등록되지 않은 매장입니다.";
             return View();
         }
 
         public ActionResult ShopInfoPage(string building, string floor, string location)
         {
-            ViewBag.Message = "상가연합회 만남의 광장 정보 입니다.";
             string tempURL = "";
             switch (building)
             {
@@ -104,9 +110,6 @@ namespace seomoonsijang.Controllers
                 case "4층":
                     tempURL = "Forth";
                     break;
-                default:
-                    tempURL += "default";
-                    break;
             }
             ViewBag.URL = tempURL;
             ViewBag.Location = location;
@@ -126,6 +129,13 @@ namespace seomoonsijang.Controllers
             TableResult retrievedResult = table.Execute(retrieveOperation);
 
             ShopInfoEntity retrievedEntity = (ShopInfoEntity)retrievedResult.Result;
+
+            if (retrievedEntity == null)
+            {
+                ViewBag.Location = location;
+                return RedirectToAction("EmptyShop", new { Building = ViewBag.Building, Floor = floor, Shop = location });
+            }
+
             // Print the phone number of the result.
             CloudTable tableUserInfo = tableClient.GetTableReference("UserInformation");
             TableOperation retrieveUserInfoOperation = TableOperation.Retrieve<UserInfoEntity>(retrievedEntity.OwnerID, building + ":" + floor + ":" + location);
@@ -157,8 +167,15 @@ namespace seomoonsijang.Controllers
                 IndexToView temp = new IndexToView(imageURL, text);
                 myActivity.Add(temp);
             }
-            myActivity.Reverse();
-            return View(myActivity);
+            if (myActivity.Count > 0)
+            {
+                myActivity.Reverse();
+                return View(myActivity);
+            }
+            else
+            {
+                return View("EmptyShop");
+            }
             //return View();
         }
     }

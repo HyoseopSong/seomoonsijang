@@ -348,6 +348,7 @@
     <Content Include="Views\FloorInfo\ShopInfoPage.cshtml" />
     <Content Include="Views\Home\Intro.cshtml" />
     <Content Include="Views\Home\HowToRegister.cshtml" />
+    <Content Include="Views\FloorInfo\EmptyShop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
