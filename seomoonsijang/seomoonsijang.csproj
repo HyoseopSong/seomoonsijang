@@ -227,6 +227,7 @@
     <Compile Include="DataObjects\ShopInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoToView.cs" />
+    <Compile Include="DataObjects\VisitCounter.cs" />
     <Compile Include="Filters\MyRequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -69,8 +69,24 @@ namespace seomoonsijang.Controllers
 
         public ActionResult EmptyShop(string building, string floor, string shop)
         {
+            switch(shop[shop.Length-1])
+            {
+                case '1':
+                case '3':
+                case '6':
+                case '7':
+                case '8':
+                case '0':
+                    ViewBag.Message = building + " " + floor + " " + shop + "은 등록되지 않은 매장입니다.";
+                    break;
 
-            ViewBag.Message = building + " " + floor + " " + shop + "은(는) 등록되지 않은 매장입니다.";
+                case '2':
+                case '4':
+                case '5':
+                case '9':
+                    ViewBag.Message = building + " " + floor + " " + shop + "는 등록되지 않은 매장입니다.";
+                    break;
+            }
             return View();
         }
 
