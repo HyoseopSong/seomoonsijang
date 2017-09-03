@@ -1,7 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-  <siteMapNode url="" title=""  description="">
-    <siteMapNode url="" title=""  description="" />
-    <siteMapNode url="" title=""  description="" />
+  <siteMapNode url="~/Home/Index" title="홈"  description="홈">
+    <siteMapNode url="~/Home/Intro" title="앱 소개"  description="서문시장.net 앱을 소개합니다.">
+      <siteMapNode url="~/Home/Intro" title="앱 소개"  description="서문시장.net 앱을 소개합니다." />
+      <siteMapNode url="~/Home/HowToRegister" title="내 매장 등록 방법"  description="내 매장 등록 방법을 안내합니다." />      
+    </siteMapNode>
+    <siteMapNode url="~/Home/About" title="서문시장 지도"  description="서문시장 지도를 봅니다." >
+      <siteMapNode url="~/FloorInfo/DongsanFirst" title="동산상가 1층"  description="동산상가 1층" >
+        <siteMapNode url="~/FloorInfo/DongsanBaseFirst" title="동산상가 지하1층"  description="동산상가 지하1층" />
+        <siteMapNode url="~/FloorInfo/DongsanFirst" title="동산상가 1층"  description="동산상가 1층" />
+        <siteMapNode url="~/FloorInfo/DongsanSecond" title="동산상가 2층"  description="동산상가 2층" />
+        <siteMapNode url="~/FloorInfo/DongsanThird" title="동산상가 3층"  description="동산상가 3층" />
+      </siteMapNode>
+      <siteMapNode url="~/FloorInfo/SecondFirst" title="2지구 1층"  description="2지구 1층" >
+        <siteMapNode url="~/FloorInfo/SecondBaseFirst" title="2지구 지하1층"  description="2지구 지하1층" />
+        <siteMapNode url="~/FloorInfo/SecondFirst" title="2지구 1층"  description="2지구 1층" />
+        <siteMapNode url="~/FloorInfo/SecondSecond" title="2지구 2층"  description="2지구 2층" />
+        <siteMapNode url="~/FloorInfo/SecondThird" title="2지구 3층"  description="2지구 3층" />
+        <siteMapNode url="~/FloorInfo/SecondForth" title="2지구 4층"  description="2지구 4층" />
+      </siteMapNode>
+      <siteMapNode url="~/FloorInfo/FifthFirst" title="5지구 1층"  description="5지구 1층" >
+        <siteMapNode url="~/FloorInfo/FifthFirst" title="5지구 1층"  description="5지구 1층" />
+        <siteMapNode url="~/FloorInfo/FifthSecond" title="5지구 2층"  description="5지구 2층" />
+      </siteMapNode>
+      <siteMapNode url="~/FloorInfo/Union" title="상가연합회"  description="상가연합회" />
+    </siteMapNode>
+    <siteMapNode url="~/FloorInfo/ShopInfoPage" title="매장 정보"  description="매장 정보" />
+    <siteMapNode url="https://itunes.apple.com/kr/app/서문시장-net/id1241398958?mt=8" title="앱스토어"  description="앱스토어" />
+    <siteMapNode url="https://play.google.com/store/apps/details?id=hyoseop.metal.chopsticks.westgateproject1" title="구글플레이"  description="구글플레이" />
   </siteMapNode>
 </siteMap>

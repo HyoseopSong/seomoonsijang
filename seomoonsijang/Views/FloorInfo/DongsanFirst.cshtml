@@ -7,8 +7,10 @@
 <div>
     <div class="container">
         <ul class="nav navbar-nav">
+            <li onclick="displayAlert()"><a>지하1층</a></li>
             <li>@Html.ActionLink("1층", "DongsanFirst", "FloorInfo")</li>
             <li>@Html.ActionLink("2층", "DongsanSecond", "FloorInfo")</li>
+            <li onclick="displayAlert()"><a>3층</a></li>
         </ul>
     </div>
 </div>
@@ -266,4 +268,10 @@
 
     </svg>
 </div>
+
+<script type="text/javascript">
+    function displayAlert() {
+        alert("지도정보가 아직 준비되지 않았습니다.");
+    };
+</script>
 

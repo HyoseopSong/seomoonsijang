@@ -339,6 +339,8 @@
     <Content Include="Views\Home\HowToRegister.cshtml" />
     <Content Include="Views\FloorInfo\EmptyShop.cshtml" />
     <Content Include="Web.sitemap" />
+    <Content Include="Views\FloorInfo\DongsanBaseFirst.cshtml" />
+    <Content Include="Views\FloorInfo\DongsanThird.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

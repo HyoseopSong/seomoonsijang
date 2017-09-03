@@ -50,6 +50,11 @@ namespace seomoonsijang.Controllers
             return View();
         }
 
+        public ActionResult DongsanBaseFirst()
+        {
+            //ViewBag.Message = "동산상가 지하1층 상가 위치 정보 입니다.";
+            return View();
+        }
         public ActionResult DongsanFirst()
         {
             //ViewBag.Message = "동산상가 지상1층 상가 위치 정보 입니다.";
@@ -61,6 +66,11 @@ namespace seomoonsijang.Controllers
             return View();
         }
 
+        public ActionResult DongsanThird()
+        {
+            //ViewBag.Message = "동산상가 지상3층 상가 위치 정보 입니다.";
+            return View();
+        }
         public ActionResult Union()
         {
             //ViewBag.Message = "상가연합회 만남의 광장 정보 입니다.";
