@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace seomoonsijang.Areas.칭기즈칸
+namespace seomoonsijang.Areas.오지구예시매장
 {
-    public class 칭기즈칸AreaRegistration : AreaRegistration 
+    public class 오지구예시매장AreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "칭기즈칸";
+                return "오지구예시매장";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "칭기즈칸_default",
-                "칭기즈칸/{controller}/{action}/{id}",
+                "오지구예시매장_default",
+                "오지구예시매장/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

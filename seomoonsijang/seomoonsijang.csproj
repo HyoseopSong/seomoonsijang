@@ -210,12 +210,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\로스촬드\Controllers\HomeController.cs" />
-    <Compile Include="Areas\로스촬드\로스촬드AreaRegistration.cs" />
-    <Compile Include="Areas\쇠젓가락\Controllers\HomeController.cs" />
-    <Compile Include="Areas\쇠젓가락\쇠젓가락AreaRegistration.cs" />
-    <Compile Include="Areas\칭기즈칸\Controllers\HomeController.cs" />
-    <Compile Include="Areas\칭기즈칸\칭기즈칸AreaRegistration.cs" />
+    <Compile Include="Areas\오지구예시매장\Controllers\HomeController.cs" />
+    <Compile Include="Areas\오지구예시매장\오지구예시매장AreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FloorInfoController.cs" />
@@ -260,19 +256,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\쇠젓가락\Views\web.config" />
-    <Content Include="Areas\쇠젓가락\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\쇠젓가락\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\쇠젓가락\Views\Home\Index.cshtml" />
-    <Content Include="Areas\칭기즈칸\Views\web.config" />
-    <Content Include="Areas\칭기즈칸\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\칭기즈칸\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\칭기즈칸\Views\Home\Index.cshtml" />
     <Content Include="Connected Services\westgateprojectAzureStorage\ConnectedService.json" />
-    <Content Include="Areas\로스촬드\Views\web.config" />
-    <Content Include="Areas\로스촬드\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\로스촬드\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\로스촬드\Views\Home\Index.cshtml" />
+    <Content Include="Areas\오지구예시매장\Views\web.config" />
+    <Content Include="Areas\오지구예시매장\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\오지구예시매장\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\오지구예시매장\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\seomoonsijang - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="googlefe44631a0acd6688.html" />
@@ -350,12 +338,11 @@
     <Content Include="Views\Home\Intro.cshtml" />
     <Content Include="Views\Home\HowToRegister.cshtml" />
     <Content Include="Views\FloorInfo\EmptyShop.cshtml" />
+    <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\로스촬드\Models\" />
-    <Folder Include="Areas\쇠젓가락\Models\" />
-    <Folder Include="Areas\칭기즈칸\Models\" />
+    <Folder Include="Areas\오지구예시매장\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

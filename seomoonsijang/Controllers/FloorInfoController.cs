@@ -183,15 +183,8 @@ namespace seomoonsijang.Controllers
                 IndexToView temp = new IndexToView(imageURL, text);
                 myActivity.Add(temp);
             }
-            if (myActivity.Count > 0)
-            {
-                myActivity.Reverse();
-                return View(myActivity);
-            }
-            else
-            {
-                return View("EmptyShop");
-            }
+            myActivity.Reverse();
+            return View(myActivity);
             //return View();
         }
     }
