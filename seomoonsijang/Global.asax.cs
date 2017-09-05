@@ -26,7 +26,16 @@ namespace seomoonsijang
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("VisitorCounter");
             DateTime KRT = DateTime.Now.AddHours(9);
-            TableOperation retrieveOperation = TableOperation.Retrieve<VisitCounter>(KRT.Year.ToString() + "년" + KRT.Month.ToString() + "월" + KRT.Day.ToString() + "일", KRT.Hour.ToString() + "시");
+            string rowKey = "";
+            if(KRT.Hour > 0 && KRT.Hour < 10)
+            {
+                rowKey = "0" + KRT.Hour.ToString() + "시";
+            }
+            else
+            {
+                rowKey = KRT.Hour.ToString() + "시";
+            }
+            TableOperation retrieveOperation = TableOperation.Retrieve<VisitCounter>(KRT.Year.ToString() + "년" + KRT.Month.ToString() + "월" + KRT.Day.ToString() + "일", rowKey);
 
             // Execute the retrieve operation.
             TableResult retrievedResult = table.Execute(retrieveOperation);
