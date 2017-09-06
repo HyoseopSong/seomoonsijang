@@ -210,8 +210,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\오지구예시매장\Controllers\HomeController.cs" />
-    <Compile Include="Areas\오지구예시매장\오지구예시매장AreaRegistration.cs" />
+    <Compile Include="Areas\복덩이\Controllers\HomeController.cs" />
+    <Compile Include="Areas\복덩이\복덩이AreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FloorInfoController.cs" />
@@ -257,10 +257,10 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Connected Services\westgateprojectAzureStorage\ConnectedService.json" />
-    <Content Include="Areas\오지구예시매장\Views\web.config" />
-    <Content Include="Areas\오지구예시매장\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\오지구예시매장\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\오지구예시매장\Views\Home\Index.cshtml" />
+    <Content Include="Areas\복덩이\Views\web.config" />
+    <Content Include="Areas\복덩이\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\복덩이\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\복덩이\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\seomoonsijang - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="googlefe44631a0acd6688.html" />
@@ -344,7 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\오지구예시매장\Models\" />
+    <Folder Include="Areas\복덩이\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

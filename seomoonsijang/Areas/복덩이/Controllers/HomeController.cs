@@ -9,28 +9,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace seomoonsijang.Areas.오지구예시매장.Controllers
+namespace seomoonsijang.Areas.복덩이.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: 오지구예시매장/Home
+        // GET: 복덩이/Home
         public ActionResult Index()
         {
-            ViewBag.Building = "5지구";
+            ViewBag.Building = "2지구";
             ViewBag.Floor = "1층";
-            ViewBag.Location = "46";
-            ViewBag.URL = "FifthFirst";
+            ViewBag.Location = "서마12";
+            ViewBag.URL = "SecondFirst";
 
 
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable table = tableClient.GetTableReference("FifthBuilding");
+            CloudTable table = tableClient.GetTableReference("SecondBuilding");
             // Construct the query operation for all customer entities where PartitionKey="Smith".
 
             // Create a retrieve operation that takes a customer entity.
-            TableOperation retrieveOperation = TableOperation.Retrieve<ShopInfoEntity>("1층", "46");
+            TableOperation retrieveOperation = TableOperation.Retrieve<ShopInfoEntity>("1층", "서마12");
 
             // Execute the retrieve operation.
             TableResult retrievedResult = table.Execute(retrieveOperation);
@@ -39,12 +39,12 @@ namespace seomoonsijang.Areas.오지구예시매장.Controllers
 
             if (retrievedEntity == null)
             {
-                return RedirectToAction("EmptyShop", new { Building = ViewBag.Building, Floor = "1층", Shop = "46" });
+                return RedirectToAction("EmptyShop", new { Building = ViewBag.Building, Floor = "1층", Shop = "서마12" });
             }
 
             // Print the phone number of the result.
             CloudTable tableUserInfo = tableClient.GetTableReference("UserInformation");
-            TableOperation retrieveUserInfoOperation = TableOperation.Retrieve<UserInfoEntity>(retrievedEntity.OwnerID, "FifthBuilding:1층:46");
+            TableOperation retrieveUserInfoOperation = TableOperation.Retrieve<UserInfoEntity>(retrievedEntity.OwnerID, "SecondBuilding:1층:서마12");
 
             TableResult retrievedUserInfoResult = tableUserInfo.Execute(retrieveUserInfoOperation);
             UserInfoEntity retrievedUserInfoEntity = (UserInfoEntity)retrievedUserInfoResult.Result;

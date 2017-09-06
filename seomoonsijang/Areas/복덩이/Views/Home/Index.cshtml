@@ -3,13 +3,19 @@
     ViewBag.Title = ViewBag.ShopName;
 }
 
-<div class="jumbotron">
-    <h1>@ViewBag.ShopName</h1>
+<div class="jumbotron row">
+    <div class="col-md-6">
+        <h1>@ViewBag.ShopName</h1>
 
-    <a href="/FloorInfo/@ViewBag.URL/">
-        <p class="lead">@ViewBag.Building &nbsp; @ViewBag.Floor &nbsp; @ViewBag.Location</p>
-    </a>
-    <p class="lead">@ViewBag.PhoneNumber</p>
+        <a href="/FloorInfo/@ViewBag.URL/">
+            <p class="lead">@ViewBag.Building &nbsp; @ViewBag.Floor &nbsp; @ViewBag.Location</p>
+        </a>
+        <p class="lead">@ViewBag.PhoneNumber</p>
+    </div>
+    <div class="col-md-6">
+        <img src="https://westgateproject.blob.core.windows.net/lsaforever0217/131491761240815900.jpg" style="width:180px; height:180px; object-fit:contain;">
+        
+    </div>
 </div>
 
 
