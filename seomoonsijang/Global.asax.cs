@@ -22,12 +22,12 @@ namespace seomoonsijang
         protected void Session_Start(object sender, EventArgs e)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
-            
+
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("VisitorCounter");
             DateTime KRT = DateTime.Now.AddHours(9);
             string rowKey = "";
-            if(KRT.Hour > 0 && KRT.Hour < 10)
+            if (KRT.Hour > 0 && KRT.Hour < 10)
             {
                 rowKey = "0" + KRT.Hour.ToString() + "시";
             }
@@ -40,7 +40,7 @@ namespace seomoonsijang
             // Execute the retrieve operation.
             TableResult retrievedResult = table.Execute(retrieveOperation);
             VisitCounter retrievedEntity = (VisitCounter)retrievedResult.Result;
-            if(retrievedEntity == null)
+            if (retrievedEntity == null)
             {
                 VisitCounter newVisitor = new VisitCounter();
                 TableOperation insertOperation = TableOperation.Insert(newVisitor);
