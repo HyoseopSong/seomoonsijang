@@ -35,14 +35,32 @@ namespace seomoonsijang
             {
                 rowKey = KRT.Hour.ToString() + "시";
             }
-            TableOperation retrieveOperation = TableOperation.Retrieve<VisitCounter>(KRT.Year.ToString() + "년" + KRT.Month.ToString() + "월" + KRT.Day.ToString() + "일", rowKey);
+
+            string partitionKey = KRT.Year.ToString() + "년";
+            if (KRT.Month > 0 && KRT.Month < 10)
+            {
+                partitionKey += "0" + KRT.Month.ToString() + "월";
+            }
+            else
+            {
+                partitionKey += KRT.Month.ToString() + "월";
+            }
+            if (KRT.Day > 0 && KRT.Day < 10)
+            {
+                partitionKey += "0" + KRT.Day.ToString() + "일";
+            }
+            else
+            {
+                partitionKey += KRT.Day.ToString() + "일";
+            }
+            TableOperation retrieveOperation = TableOperation.Retrieve<VisitCounter>(partitionKey, rowKey);
 
             // Execute the retrieve operation.
             TableResult retrievedResult = table.Execute(retrieveOperation);
             VisitCounter retrievedEntity = (VisitCounter)retrievedResult.Result;
             if (retrievedEntity == null)
             {
-                VisitCounter newVisitor = new VisitCounter();
+                VisitCounter newVisitor = new VisitCounter(partitionKey, rowKey);
                 TableOperation insertOperation = TableOperation.Insert(newVisitor);
                 table.Execute(insertOperation);
             }
