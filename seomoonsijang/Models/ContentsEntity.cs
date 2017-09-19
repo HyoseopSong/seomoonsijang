@@ -13,11 +13,13 @@ namespace seomoonsijang.Models
             RowKey = blobName;
             ShopName = shopName;
             Context = text;
+            LikeMember = "";
         }
 
         public ContentsEntity() { }
 
         public string ShopName { get; set; }
         public string Context { get; set; }
+        public string LikeMember { get; set; }
     }
 }

@@ -446,7 +446,6 @@ namespace seomoonsijang.Controllers
             }
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("UserInformation");
@@ -480,13 +479,42 @@ namespace seomoonsijang.Controllers
 
                     TableQuery<ContentsEntity> queryShopName = new TableQuery<ContentsEntity>().Where(
                                 TableQuery.GenerateFilterCondition("ShopName", QueryComparisons.Equal, ShopName));
-
+                    Dictionary<string, string> blobName = new Dictionary<string, string>();
                     foreach (ContentsEntity entity in tableOfOwner.ExecuteQuery(queryShopName))
                     {
                         TableOperation deleteOperation = TableOperation.Delete(entity);
                         tableOfOwner.Execute(deleteOperation);
+                        blobName.Add(entity.RowKey, entity.LikeMember); //LikeMember 값 읽어와서 같이 저장해두기
                     }
 
+
+                    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                    CloudBlobContainer blobContainer = blobClient.GetContainerReference(OwnerIDforTable);
+                    foreach(var blob in blobName)
+                    {
+                        CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(blob.Key);
+                        blockBlob.Delete();
+                        //LikeMember 아이디하고 BlobName 값 이용해서 LikeContents 지우기
+                        var likeOwner = blob.Value.Split(':');
+                        for(int ii = 0; ii < likeOwner.Length-1; ii++)
+                        {
+                            CloudTable likeOwnerTable = tableClient.GetTableReference(likeOwner[ii]);
+
+                            TableOperation likeEntityOperation = TableOperation.Retrieve<LikeEntity>(OwnerID, blob.Key);
+                            TableResult likeEntityResult = likeOwnerTable.Execute(likeEntityOperation);
+                            if (likeEntityResult.Result != null)
+                            {
+                                LikeEntity likeEntity = (LikeEntity)likeEntityResult.Result;
+                                TableOperation deleteOperation = TableOperation.Delete(likeEntity);
+                                likeOwnerTable.Execute(deleteOperation);
+                            }
+
+
+                        }
+                        
+                    }
+
+                    
                     var tempBuilding = ShopLocation.Split(':');
                     var building = tempBuilding[0];
                     var floor = tempBuilding[1];

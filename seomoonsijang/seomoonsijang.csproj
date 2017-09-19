@@ -219,6 +219,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DataObjects\BuildingEntity.cs" />
     <Compile Include="DataObjects\IndexToView.cs" />
+    <Compile Include="DataObjects\LikeEntity.cs" />
     <Compile Include="DataObjects\RecentEntity.cs" />
     <Compile Include="DataObjects\ShopInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoEntity.cs" />
