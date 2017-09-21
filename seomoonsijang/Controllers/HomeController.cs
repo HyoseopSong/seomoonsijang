@@ -75,7 +75,7 @@ namespace seomoonsijang.Controllers
             // Get the index of the orientation property.
             int orientation_index =
                 Array.IndexOf(img.PropertyIdList, 0x0112);
-
+            if(orientation_index < 0) return 0;
             return img.GetPropertyItem(0x0112).Value[0];
         }
 
