@@ -6,7 +6,9 @@ using seomoonsijang.DataObjects;
 using seomoonsijang.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -75,7 +77,45 @@ namespace seomoonsijang.Controllers
                         TableOperation updateOperation = TableOperation.Replace(shopInfo);
                         BuildingTable.Execute(updateOperation);
                     }
+                    
 
+
+
+                    CloudTable pushTable = tableClient.GetTableReference("PushID");
+                    TableOperation retrievePushIDOperation = TableOperation.Retrieve<PushIDEntity>(OwnerID, ShopName);
+                    TableResult retrievedPushIDResult = pushTable.Execute(retrievePushIDOperation);
+                    PushIDEntity pushIDEntity = (PushIDEntity)retrievedPushIDResult.Result;
+                    if(pushIDEntity != null)
+                    {
+                        string serverKey = "AAAAqDQOgEI:APA91bGp_kLy57U2DjJG9_w50mD0zX9K5dm40slA_gwfA65VMnsvt0plQQ3ijrOwKHotmlIAfNv4LIuBKAi0szQeqwv0cjUc91B16E-VquwQTeyl3DsPLbXuOYPH4vmTegRHHDj006XR";
+                    
+                        var pushMessageResult = "-1";
+                        var webAddr = "https://fcm.googleapis.com/fcm/send";
+
+                        var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
+                        httpWebRequest.ContentType = "application/json";
+                        httpWebRequest.Headers.Add("Authorization:key=" + serverKey);
+                        httpWebRequest.Method = "POST";
+
+                        var message = pushIDEntity.RowKey + " 등록이 완료되었습니다. 내 매장으로 이동하셔서 내 소식을 게시해 보세요.";
+                        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                        {
+                            string json = "{\"to\": \"" + pushIDEntity.PushID + "\",\"notification\": {\"body\": \"" + message + "\", \"title\" : \"서문시장.net\", \"icon\" : \"smLogo.png\"}}";
+                            //{"to": "Your device token","data": {"message": "This is a Firebase Cloud Messaging Topic Message!",}}
+                            streamWriter.Write(json);
+                            streamWriter.Flush();
+                        }
+
+                        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                        {
+                            pushMessageResult = streamReader.ReadToEnd();
+                        }
+                        
+                        TableOperation deleteOperation = TableOperation.Delete(pushIDEntity);
+                        pushTable.Execute(deleteOperation);
+                    }
+                    
                 }
 
             }

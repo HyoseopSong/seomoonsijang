@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Index", "PushNotification"))
+{
+    <p>DeviceID:</p>@Html.TextBox("deviceId", null, new { style = "width:100%;height:100%" })<br />
+    <p>Message:</p>@Html.TextBox("message", null, new { style = "width:100%;height:100%" })<br />
+            <input type="submit" value="Upload" />
+
+}

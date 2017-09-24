@@ -217,9 +217,11 @@
     <Compile Include="Controllers\FloorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PushNotificationController.cs" />
     <Compile Include="DataObjects\BuildingEntity.cs" />
     <Compile Include="DataObjects\IndexToView.cs" />
     <Compile Include="DataObjects\LikeEntity.cs" />
+    <Compile Include="DataObjects\PushIDEntity.cs" />
     <Compile Include="DataObjects\RecentEntity.cs" />
     <Compile Include="DataObjects\ShopInfoEntity.cs" />
     <Compile Include="DataObjects\UserInfoEntity.cs" />
@@ -342,6 +344,7 @@
     <Content Include="Web.sitemap" />
     <Content Include="Views\FloorInfo\DongsanBaseFirst.cshtml" />
     <Content Include="Views\FloorInfo\DongsanThird.cshtml" />
+    <Content Include="Views\PushNotification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
