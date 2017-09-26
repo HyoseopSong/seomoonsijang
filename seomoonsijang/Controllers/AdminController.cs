@@ -77,9 +77,9 @@ namespace seomoonsijang.Controllers
                         TableOperation updateOperation = TableOperation.Replace(shopInfo);
                         BuildingTable.Execute(updateOperation);
                     }
-                    
 
 
+                    #region Google Firebase Push Notification
 
                     CloudTable pushTable = tableClient.GetTableReference("PushID");
                     TableOperation retrievePushIDOperation = TableOperation.Retrieve<PushIDEntity>(OwnerID, ShopName);
@@ -115,7 +115,9 @@ namespace seomoonsijang.Controllers
                         TableOperation deleteOperation = TableOperation.Delete(pushIDEntity);
                         pushTable.Execute(deleteOperation);
                     }
-                    
+#endregion
+
+
                 }
 
             }

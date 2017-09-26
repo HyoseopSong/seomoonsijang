@@ -1,0 +1,62 @@
+﻿@model List<seomoonsijang.DataObjects.IndexToView>
+@{
+    ViewBag.Title = ViewBag.ShopName;
+}
+
+<div class="jumbotron row">
+    <div class="col-md-6">
+        <h1>@ViewBag.ShopName</h1>
+
+        <a href="/FloorInfo/@ViewBag.URL/">
+            <p class="lead">@ViewBag.Building &nbsp; @ViewBag.Floor &nbsp; @ViewBag.Location</p>
+        </a>
+        <p class="lead">@ViewBag.PhoneNumber</p>
+    </div>
+    <div class="col-md-6">
+            <table>
+                    <tr>
+                        <th>
+                            <img src="https://westgateproject.blob.core.windows.net/blob1/%E1%84%8F%E1%85%A1%E1%84%8F%E1%85%A1%E1%84%8B%E1%85%A9%E1%84%90%E1%85%A9%E1%86%A8.png" style="width:50px; height:50px; object-fit:contain;">
+                           </th>
+                        <th style="vertical-align:bottom">
+                            <p class="lead">hoya-1999@hanmail.net</p>
+                        </th>
+                    </tr>
+                <tr>
+                    <th>
+                        <a href="https://story.kakao.com/gio8787">
+                            <img src="https://westgateproject.blob.core.windows.net/blob1/%E1%84%8F%E1%85%A1%E1%84%8F%E1%85%A1%E1%84%8B%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5.png" style="width:50px; height:50px; object-fit:contain;">
+                        </a>
+                    </th>
+                    <th style="vertical-align:bottom">
+                        <a href="https://story.kakao.com/gio8787">
+                            <p class="lead">gio8787</p>
+                        </a>
+                    </th>
+                </tr>
+            </table>
+            
+    </div>
+</div>
+
+
+<div class="row">
+    @if (Model.Count > 0)
+    {
+        <h2>&nbsp;최근 등록된 소식</h2>
+        foreach (var item in Model)
+        {
+            <div class="col-md-4" style="border: 1px solid gold;">
+                <img src=@item.BlobURL style="width:350px; height:350px; object-fit:contain; @item.Orientation">
+                <p>
+                    <h4 style="font-weight:bold">@item.Text</h4>
+                </p>
+            </div>
+        }
+    }
+    else
+    {
+        <h2>&nbsp;최근 등록된 소식이 없습니다.</h2>
+
+    }
+</div>
