@@ -18,6 +18,7 @@ namespace seomoonsijang.Controllers
         public ActionResult Index()
         {
             //ViewBag.ID = User.Identity.Name;
+            ViewBag.Title = "서문시장.net";
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("MS_AzureStorageAccountConnectionString"));
 
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
